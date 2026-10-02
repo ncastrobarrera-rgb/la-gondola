@@ -269,6 +269,7 @@ footer p{max-width:74ch}
   <section id="view-proveedores" hidden>
     <div class="rules">
       <div class="rule"><b>Quien fabrica no siempre es quien te vende.</b>Corona la hace AB InBev, pero te la factura Coca-Cola Andina. Bombay es de Bacardí, pero en Chile la reparte Grupo Cepas.</div>
+      <div class="rule"><b>CCU son tres listas, no una.</b>El sitio de CCU muestra juntas las marcas de las tres empresas del grupo. La regla para separarlas: cerveza, bebida, agua y jugo es CCU; vino y espumante es VSPT; pisco, sour y destilado es Pisquera.</div>
       <div class="rule"><b>Los contratos se mueven.</b>Pernod Ricard pasó de DESA a Pisquera. Diageo pasó de Peumo a Andina. Campari vendió Cinzano en 2025. Tu factura siempre manda.</div>
       <div class="rule"><b>El sello "confirmar" es honesto.</b>Marca las fichas donde no pude verificar quién es el distribuidor actual. Cuando lo sepas por factura, anótalo y deja de ser duda.</div>
     </div>
@@ -286,9 +287,9 @@ footer p{max-width:74ch}
 
 /* ============ PROVEEDORES ============ */
 var S = {
-  ccu:   {n:"CCU", legal:"Compañía Cervecerías Unidas", d:"Cerveza masiva y artesanal, gaseosas CCU y Pepsi, aguas, jugos, energéticas. Es dueña de VSPT y de Pisquera de Chile, pero esas facturan aparte."},
-  vspt:  {n:"VSPT · Viña San Pedro", legal:"VSPT Wine Group · filial de CCU", d:"Solo vino y espumante: San Pedro, Tarapacá, Santa Helena, Misiones de Rengo, Leyda, Viñamar, Casa Rivas. Fuerte en rotación diaria y gran reserva."},
-  cpch:  {n:"Pisquera de Chile", legal:"Compañía Pisquera de Chile · CCU + Control", d:"Piscos Mistral, Control, Campanario, Horcón Quemado, Tres Erres. Además reparte todo Pernod Ricard (Absolut, Chivas, Havana, Beefeater) y Fernet Branca."},
+  ccu:   {n:"CCU", legal:"Compañía Cervecerías Unidas", d:"Todo lo que es cerveza, gaseosa, agua, jugo y energética. Es dueña de VSPT y de Pisquera de Chile, pero cada una tiene su propia fuerza de venta y su propia lista: el vino va por VSPT y el destilado por Pisquera, aunque los veas juntos en el sitio de CCU."},
+  vspt:  {n:"VSPT · Viña San Pedro", legal:"VSPT Wine Group · filial de CCU", d:"La pata de vino y espumante del grupo CCU: San Pedro, Tarapacá, Santa Helena, Misiones de Rengo, Leyda, Viñamar, Casa Rivas y Altaïr. Acá va también Manquehuito, que es cóctel de vino, no licor."},
+  cpch:  {n:"Pisquera de Chile", legal:"Compañía Pisquera de Chile · CCU + Control", d:"La pata de destilados del grupo CCU: piscos Mistral, Control, Campanario, Horcón Quemado, Tres Erres y los sour. Además reparte todo el portafolio Pernod Ricard (Absolut, Chivas, Ballantine's, Havana, Beefeater, Jameson, Olmeca, Martell) y Fratelli Branca."},
   andina:{n:"Coca-Cola Andina", legal:"Embotelladora Andina", d:"Sistema Coca-Cola, cervezas AB InBev (Corona, Becker, Budweiser), destilados Diageo (Johnnie Walker, Smirnoff, Baileys), pisco Capel y vinos Santa Rita."},
   peumo: {n:"Peumo · VCT Chile", legal:"Distribuidora de Viña Concha y Toro", d:"Vino Concha y Toro de punta a punta (Casillero, Marqués, Don Melchor), Cono Sur, Emiliana. Más cervezas Kross, Estrella Damm, Miller y pisco Malpaso."},
   desa:  {n:"DESA", legal:"Distribución y Excelencia S.A.", d:"Importados premium: Jack Daniel's, Jägermeister, Aperol, Stoli, Herradura. Vinos Errázuriz y Undurraga, cervezas Peroni y Estrella Galicia."},
@@ -322,7 +323,7 @@ var P = [
 {n:"Kunstmann · Torobayo", s:"ccu", c:"cerveza", t:1, v:["Torobayo","Lager","Gran Torobayo","Bock","Sin Filtrar","Miel"], f:["Botella 330","Lata 470","Botella 1 L"]},
 {n:"D'olbek", s:"ccu", c:"cerveza", t:1, v:["Lager","Ale","Maqui tipo Ale"], f:["Botella 330"]},
 {n:"Blue Moon", s:"ccu", c:"cerveza", t:1, v:["Belgian White"], f:["Botella 355","Lata 470"]},
-{n:"Patagonia", s:"ccu", c:"cerveza", t:1, q:1, v:["Amber Lager","Weisse","24.7"], f:["Botella 355","Lata 470","Botella 730"], x:"CCU la muestra en su sitio de marcas, pero en otros países Patagonia es de AB InBev. Revisa si te la factura CCU o Andina."},
+{n:"Patagonia", s:"ccu", c:"cerveza", t:1, v:["Amber Lager","Weisse","24.7","Bohemian Pilsener"], f:["Botella 355","Lata 470","Botella 730"], x:"Confirmada en el sitio de marcas de CCU, dentro de cervezas artesanales."},
 {n:"Corona", s:"andina", c:"cerveza", t:1, v:["Corona Extra","Corona Cero","Corona Sunbrew"], f:["Botella 330","Botella 355","Botella 710","Lata 350","Lata 410","Botella 1 L retornable"]},
 {n:"Budweiser", s:"andina", c:"cerveza", t:1, v:["Budweiser","Budweiser Zero"], f:["Lata 350","Lata 470","Botella 343","Botella 1 L retornable"]},
 {n:"Becker", s:"andina", c:"cerveza", t:1, v:["Becker","Becker Zero"], f:["Lata 350","Lata 470","Lata 710","Botella 1 L retornable","Botella 1,2 L"]},
@@ -337,6 +338,8 @@ var P = [
 {n:"Sol", s:"ccu", c:"cerveza", t:0, v:["Sol"], f:["Botella 330","Lata 350","Lata 470"]},
 {n:"Coors", s:"ccu", c:"cerveza", t:0, v:["Coors Original"], f:["Lata 350","Lata 470"]},
 {n:"Guayacán", s:"ccu", c:"cerveza", t:0, v:["Golden Ale","Stout","Diaguita"], f:["Botella 330"]},
+{n:"Stones", s:"ccu", c:"cerveza", t:0, v:["Stones"], f:["Lata 350","Lata 470","Botella 1 L retornable"], x:"Cerveza nacional de CCU, de precio bajo. Buena para competir con Báltica."},
+{n:"Imperial", s:"ccu", c:"cerveza", t:0, v:["Imperial"], f:["Lata 350","Lata 470"], x:"Marca de CCU. Tradicional en Argentina y presente en el portafolio nacional."},
 {n:"Stella Artois", s:"andina", c:"cerveza", t:0, v:["Stella Artois","Stella 0.0"], f:["Botella 330","Lata 470","Botella 975"]},
 {n:"Michelob Ultra", s:"andina", c:"cerveza", t:0, v:["Michelob Ultra"], f:["Botella 355","Lata 355"]},
 {n:"Estrella Damm", s:"peumo", c:"cerveza", t:0, v:["Estrella Damm","Voll-Damm","Free Damm"], f:["Botella 330","Lata 330"]},
@@ -368,7 +371,13 @@ var P = [
 /* para ampliar */
 {n:"Santa Helena", s:"vspt", c:"vino", t:0, l:["Varietal","Reserva","Selección del Directorio"], v:["Cabernet Sauvignon","Merlot","Carmenere"], f:["Botella 750","Caja 2 L"]},
 {n:"35 Sur", s:"vspt", c:"vino", t:0, l:["Varietal","Reserva"], v:["Cabernet Sauvignon","Sauvignon Blanc","Carmenere"], f:["Botella 750"]},
-{n:"Leyda", s:"vspt", c:"vino", t:0, l:["Reserva","Single Vineyard"], v:["Sauvignon Blanc","Pinot Noir","Chardonnay"], f:["Botella 750"]},
+{n:"Leyda", s:"vspt", c:"vino", t:0, l:["Reserva","Single Vineyard","Lot"], v:["Sauvignon Blanc","Pinot Noir","Chardonnay"], f:["Botella 750"]},
+{n:"Altaïr", s:"vspt", c:"vino", t:0, l:["Sideral","Altaïr (ícono)"], v:["Blend de Cachapoal Andes"], f:["Botella 750"], x:"La bodega ícono de VSPT. Sideral es su segunda etiqueta."},
+{n:"Casa Rivas", s:"vspt", c:"vino", t:0, l:["Varietal","Reserva"], v:["Cabernet Sauvignon","Carmenere","Sauvignon Blanc"], f:["Botella 750","Caja 1 L"]},
+{n:"Épica", s:"vspt", c:"vino", t:0, l:["Varietal","Reserva"], v:["Cabernet Sauvignon","Carmenere","Merlot"], f:["Botella 750"]},
+{n:"Las Encinas", s:"vspt", c:"vino", t:0, l:["Varietal"], v:["Cabernet Sauvignon","Merlot","Sauvignon Blanc"], f:["Botella 750","Caja 1 L","Caja 2 L"], x:"Línea de rotación diaria del grupo San Pedro."},
+{n:"Tierras Moradas", s:"vspt", c:"vino", t:0, l:["Tierras Moradas (premium)"], v:["País","Blend"], f:["Botella 750"]},
+{n:"Kankana del Elqui", s:"vspt", c:"vino", t:0, l:["Kankana (premium)"], v:["Syrah"], f:["Botella 750"]},
 {n:"Cono Sur", s:"peumo", c:"vino", t:0, l:["Bicicleta","Orgánico","Reserva Especial","20 Barriles","Ocio"], v:["Pinot Noir","Cabernet Sauvignon","Carmenere","Sauvignon Blanc"], f:["Botella 750"]},
 {n:"Don Melchor", s:"peumo", c:"vino", t:0, l:["Don Melchor (ícono)"], v:["Cabernet Sauvignon"], f:["Botella 750"]},
 {n:"Santa Rita", s:"andina", c:"vino", t:0, l:["Medalla Real","Secret Reserve","Casa Real"], v:["Cabernet Sauvignon","Carmenere","Merlot"], f:["Botella 750"]},
@@ -382,15 +391,16 @@ var P = [
 {n:"Valdivieso", s:"negra", c:"burbuja", t:1, v:["Brut","Extra Brut","Demi Sec","Rosé","Nature"], f:["Botella 187","Botella 750"], x:"Espumantes de Viña Valdivieso. Te llegan por La Negra."},
 {n:"Ópera", s:"otros", w:"Por confirmar", q:1, c:"burbuja", t:1, v:["Espumantes Ópera"], f:["Botella 750"], x:"No pude verificar el distribuidor. Anótalo desde tu próxima factura."},
 {n:"Donnaluna", s:"otros", w:"Por confirmar", q:1, c:"burbuja", t:1, v:["Espumantes Donnaluna"], f:["Botella 750"], x:"No pude verificar el distribuidor. Anótalo desde tu próxima factura."},
-{n:"Manquehuito", s:"otros", w:"Por confirmar", q:1, c:"burbuja", t:1, v:["Piña","Frutos rojos"], f:["Botellín","Botella 750","Botella 1,35 L","Lata 375"], x:"Cóctel de vino (pop wine) chileno. Revisa tu factura para saber quién lo reparte."},
+{n:"Manquehuito", s:"vspt", c:"burbuja", t:1, v:["Piña","Frutos rojos"], f:["Botellín 275","Botella 750","Botella 1,35 L","Lata 375"], x:"El pop wine clásico desde los años 70. Es marca del grupo Viña San Pedro, no de una distribuidora externa."},
 {n:"Sensus · Amaranta", s:"andina", c:"burbuja", t:0, v:["Brut","Extra Brut","Moscato","Rosé"], f:["Botella 750"]},
+{n:"G.H. Mumm", s:"cpch", c:"burbuja", t:0, v:["Cordon Rouge","Olympe Demi-Sec","Rosé"], f:["Botella 750"], x:"Champagne francés de Pernod Ricard. CCU lo lista en Vinos y Espumantes, pero el contrato Pernod lo maneja Pisquera: confirma con cuál te factura."},
 
 /* ---- PISCO Y SOUR ---- */
 {n:"Campanario", s:"cpch", c:"pisco", t:1, v:["Pisco 35°","Sour","Sour Light","Cóctel"], f:["Botella 750","Botella 1 L","Botella 1,5 L"]},
 {n:"Horcón Quemado", s:"cpch", c:"pisco", t:1, l:["Pisco 35°","Pisco 40°","Pisco 46° reservado"], v:["Sour"], f:["Botella 750","Botella 1 L"]},
 {n:"Capel", s:"andina", c:"pisco", t:1, v:["Pisco 35°","Reservado 40°","Doble Destilado","Sour","Capel Ice / cócteles"], f:["Botella 375","Botella 750","Botella 1 L","Botella 1,5 L","Lata"]},
 {n:"Secreto Peruano", s:"desa", alt:["negra"], c:"pisco", t:1, v:["Sour"], f:["Botella 750","Botella 1 L"]},
-{n:"Andino Sour", s:"otros", w:"Por confirmar", q:1, c:"pisco", t:1, v:["Sour"], f:["Botella 750","Botella 1 L"], x:"No pude verificar el fabricante ni el distribuidor. Anótalo desde tu próxima factura."},
+{n:"Sabor Andino Sour", s:"cpch", c:"pisco", t:1, v:["Sour"], f:["Botella 750","Botella 1 L"], x:"Aparece en el sitio de marcas de CCU dentro de Piscos y Licores, o sea Pisquera de Chile."},
 /* para ampliar */
 {n:"Mistral", s:"cpch", c:"pisco", t:0, l:["35°","40°","Nobel","Gran Nobel"], f:["Botella 750","Botella 1 L"]},
 {n:"Control C", s:"cpch", c:"pisco", t:0, l:["35°","40°","Reservado"], f:["Botella 750","Botella 1 L","Botella 1,5 L"]},
@@ -398,6 +408,8 @@ var P = [
 {n:"Alto del Carmen", s:"andina", c:"pisco", t:0, l:["35°","40°","Reservado"], f:["Botella 750","Botella 1 L"]},
 {n:"Malpaso", s:"peumo", c:"pisco", t:0, l:["35°","40°","Reservado"], f:["Botella 750"]},
 {n:"Republicano", s:"desa", c:"pisco", t:0, v:["Pisco"], f:["Botella 750"]},
+{n:"Espíritu de los Andes", s:"cpch", c:"pisco", t:0, l:["Doble destilado"], f:["Botella 750"], x:"Pisco de moscatel con doble destilación, gama alta de Pisquera."},
+{n:"La Serena", s:"cpch", c:"pisco", t:0, l:["35°","40°"], f:["Botella 750","Botella 1 L"]},
 
 /* ---- WHISKY ---- */
 {n:"Johnnie Walker", s:"andina", c:"whisky", t:1, l:["Red Label","Black Label","Double Black","Gold Reserve","18 años","Blue Label"], f:["Botella 200","Botella 375","Botella 750","Botella 1 L"]},
@@ -412,6 +424,8 @@ var P = [
 {n:"Blenders", s:"otros", w:"Por confirmar", q:1, c:"whisky", t:1, v:["Blended"], f:["Botella 750","Botella 1 L"], x:"No pude verificar el distribuidor. Anótalo desde tu próxima factura."},
 /* para ampliar */
 {n:"Jameson", s:"cpch", c:"whisky", t:0, l:["Original","Black Barrel"], f:["Botella 750","Botella 1 L"]},
+{n:"The Glenlivet", s:"cpch", c:"whisky", t:0, l:["12 años","15 años","18 años"], f:["Botella 750"], x:"Single malt de Pernod Ricard. Etiqueta de vitrina alta."},
+{n:"Royal Salute", s:"cpch", c:"whisky", t:0, l:["21 años"], f:["Botella 700"], x:"Lo más caro del portafolio Pernod. Solo si tienes clientela que lo pida."},
 {n:"Bulleit", s:"andina", c:"whisky", t:0, l:["Bourbon","Rye"], f:["Botella 750"]},
 {n:"Grant's", s:"desa", c:"whisky", t:1, l:["Triple Wood","8 años","12 años"], f:["Botella 750","Botella 1 L"]},
 {n:"Dewar's · William Lawson's", s:"otros", w:"Grupo Cepas", c:"whisky", t:0, l:["William Lawson's","Dewar's White Label","Dewar's 12"], f:["Botella 750","Botella 1 L"]},
@@ -458,6 +472,8 @@ var P = [
 {n:"Eristoff", s:"otros", w:"Grupo Cepas", c:"vodka", t:1, v:["Original","Black","Red"], f:["Botella 750","Botella 1 L"]},
 /* para ampliar */
 {n:"Puklaro", s:"cpch", c:"vodka", t:0, v:["Vodka Puklaro"], f:["Botella 750"]},
+{n:"Wyborowa", s:"cpch", c:"vodka", t:0, v:["Vodka polaco"], f:["Botella 750"]},
+{n:"Iceberg", s:"cpch", c:"vodka", t:0, v:["Iceberg"], f:["Botella 750"], x:"Aparece en Piscos y Licores del sitio de CCU."},
 {n:"Grey Goose", s:"otros", w:"Grupo Cepas", c:"vodka", t:0, v:["Original"], f:["Botella 750"]},
 
 /* ---- LICORES Y APERITIVOS ---- */
@@ -478,6 +494,7 @@ var P = [
 {n:"Araucano", s:"otros", w:"Por confirmar", q:1, c:"licor", t:1, v:["Licor digestivo de hierbas"], f:["Botella 750","Botella 1 L"], x:"No pude verificar el fabricante actual ni el distribuidor."},
 /* para ampliar */
 {n:"Fehrenberg", s:"cpch", c:"licor", t:0, v:["Menta","Cacao","Guinda"], f:["Botella 750"]},
+{n:"Martell", s:"cpch", c:"licor", t:0, l:["VS","VSOP","XO"], v:["Cognac"], f:["Botella 700"], x:"Cognac de Pernod Ricard. Categoría de regalo."},
 {n:"Sheridan's", s:"desa", c:"licor", t:0, v:["Café-crema"], f:["Botella 700"]},
 {n:"Brujas de Salamanca", s:"andina", c:"licor", t:0, v:["Licores Brujas de Salamanca"], f:["Botella 750"]},
 
@@ -489,12 +506,14 @@ var P = [
 {n:"Jack & Coke", s:"andina", c:"rtd", t:0, v:["Jack Daniel's con Coca-Cola"], f:["Lata 350"]},
 
 /* ---- BEBIDAS Y AGUAS ---- */
-{n:"Bebidas CCU", s:"ccu", c:"bebida", t:1, v:["Bilz","Pap","Kem","Kem Xtreme","Nobis","Crush","Canada Dry","Pepsi","7Up","Mirinda"], f:["Lata 350","Botella 591","Botella 1,5 L","Botella 2 L","Botella 3 L","Retornable 2 L"]},
+{n:"Bebidas CCU", s:"ccu", c:"bebida", t:1, v:["Bilz","Pap","Kem","Kem Xtreme","Limón Soda","Crush","Canada Dry","H2OH!","Pepsi","7Up","Mirinda"], f:["Lata 350","Botella 591","Botella 1,5 L","Botella 2 L","Botella 3 L","Retornable 2 L"]},
 {n:"Cachantun", s:"ccu", c:"bebida", t:1, v:["Con gas","Sin gas","Mas (saborizada)"], f:["Botella 500","Botella 1,6 L","Botella 2 L"]},
+{n:"Watt's", s:"ccu", c:"jugo", t:1, v:["Watt's néctar","Watt's Selección","Frugo","Sprim (polvo)","Vivo"], f:["Caja 200","Botella 300","Caja 1 L","Botella 1,5 L"], x:"CCU agrupa acá todos sus jugos, néctares y bebidas en polvo."},
 {n:"Bebidas Coca-Cola", s:"andina", c:"bebida", t:1, v:["Coca-Cola","Coca-Cola Sin Azúcar","Fanta","Sprite","Inca Kola","Schweppes","Nordic Mist"], f:["Lata 237","Lata 350","Botella 591","Botella 1,5 L","Botella 2 L","Botella 3 L","Retornable 1,25 L","Retornable 2 L"]},
 /* para ampliar */
 {n:"Vital · Benedictino", s:"andina", c:"bebida", t:0, v:["Vital con gas","Vital sin gas","Benedictino"], f:["Botella 600","Botella 1,6 L","Botella 3 L"]},
-{n:"Porvenir · Manantial", s:"ccu", c:"bebida", t:0, v:["Porvenir","Manantial"], f:["Botella 500","Bidón"]},
+{n:"Porvenir · Manantial", s:"ccu", c:"bebida", t:0, v:["Porvenir","Manantial","MAS","Perrier","Nestlé Pura Vida"], f:["Botella 500","Botella 1,6 L","Bidón"]},
+{n:"Sidra Cygan · Villa Pehuenia", s:"ccu", c:"burbuja", t:0, v:["Cygan","Villa Pehuenia"], f:["Botella 750"], x:"Categoría muy estacional: septiembre y diciembre. Pídela con tres semanas de anticipación."},
 
 /* ---- ENERGÉTICAS Y DEPORTIVAS ---- */
 {n:"Red Bull", s:"ccu", c:"energia", t:1, v:["Original","Sugarfree","Editions"], f:["Lata 250","Lata 355","Lata 473"]},
@@ -507,7 +526,6 @@ var P = [
 {n:"Mr. Big", s:"desa", alt:["negra"], c:"energia", t:1, v:["Energética","Sin azúcar"], f:["Lata 473","Lata 500"]},
 
 /* ---- JUGOS Y TÉ ---- */
-{n:"Watt's", s:"ccu", c:"jugo", t:1, v:["Néctares","Watt's Selección","Watt's light"], f:["Caja 200","Botella 300","Caja 1 L","Botella 1,5 L"]},
 {n:"Lipton Ice Tea", s:"ccu", c:"jugo", t:1, v:["Limón","Durazno","Verde"], f:["Botella 500","Botella 1,5 L"]},
 /* para ampliar */
 {n:"Del Valle · Andina Juice", s:"andina", c:"jugo", t:0, v:["Del Valle","Kapo"], f:["Caja 200","Botella 1,5 L"]}
