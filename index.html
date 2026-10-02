@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="es-CL">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>La Góndola — quién me trae qué</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#F7F8FA; --card:#FFFFFF; --panel:#FFFFFF;
+  --ink:#0E1116; --ink-2:#333B45; --soft:#646E7A; --faint:#8B95A1;
+  --rule:#E5E8EC; --rule-2:#D3D8DE; --tint:#F1F3F6;
+  --accent:#1F3C88; --accent-soft:#E8EDF8; --hl:#FFF0BF;
+  --shadow-s:0 1px 2px rgba(14,17,22,.05);
+  --shadow-m:0 1px 2px rgba(14,17,22,.05), 0 8px 24px -16px rgba(14,17,22,.35);
+  --ccu:#A33A2D; --vspt:#7A3455; --cpch:#8E6420; --andina:#1E5C78;
+  --peumo:#2E6750; --desa:#3E4884; --negra:#3A4149; --otros:#6B6152;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0C0F13; --card:#14181D; --panel:#11151A;
+    --ink:#EEF1F4; --ink-2:#C4CBD3; --soft:#939DA8; --faint:#79838E;
+    --rule:#232A31; --rule-2:#2F373F; --tint:#1A2027;
+    --accent:#8FAEE8; --accent-soft:#1B2436; --hl:#5A4A18;
+    --shadow-s:0 1px 2px rgba(0,0,0,.5);
+    --shadow-m:0 1px 2px rgba(0,0,0,.5), 0 12px 28px -20px #000;
+    --ccu:#D9705F; --vspt:#C177A0; --cpch:#C89A4E; --andina:#5FA3C2;
+    --peumo:#5FAF8B; --desa:#8A93D8; --negra:#9AA4B0; --otros:#B3A588;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0C0F13; --card:#14181D; --panel:#11151A;
+  --ink:#EEF1F4; --ink-2:#C4CBD3; --soft:#939DA8; --faint:#79838E;
+  --rule:#232A31; --rule-2:#2F373F; --tint:#1A2027;
+  --accent:#8FAEE8; --accent-soft:#1B2436; --hl:#5A4A18;
+  --ccu:#D9705F; --vspt:#C177A0; --cpch:#C89A4E; --andina:#5FA3C2;
+  --peumo:#5FAF8B; --desa:#8A93D8; --negra:#9AA4B0; --otros:#B3A588;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 180px)}
+body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.55;letter-spacing:-.006em;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+button{font:inherit;color:inherit;cursor:pointer}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+.mono-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+
+/* ---------- barra de navegación ---------- */
+.topnav{background:var(--panel);border-bottom:1px solid var(--rule)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:56px}
+.wordmark{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:700;font-size:1.06rem;letter-spacing:-.02em}
+.wordmark .mk{display:grid;place-items:center;width:26px;height:26px;border-radius:6px;background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:12px;font-weight:600}
+.navmeta{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+@media (max-width:560px){.navmeta{display:none}}
+
+/* ---------- encabezado ---------- */
+.hero .wrap{padding-top:52px;padding-bottom:36px}
+.kicker{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--rule);background:var(--card);border-radius:999px;padding:5px 13px;font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);margin:0 0 20px}
+.kicker i{width:6px;height:6px;border-radius:50%;background:var(--peumo);display:block}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(2.4rem,6vw,4rem);line-height:1.02;letter-spacing:-.032em;margin:0 0 16px;max-width:19ch}
+.lede{margin:0;max-width:60ch;color:var(--soft);font-size:1.04rem;line-height:1.6}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:30px;border:1px solid var(--rule);border-radius:12px;background:var(--card);overflow:hidden;box-shadow:var(--shadow-s)}
+.stats span{padding:16px 18px;border-right:1px solid var(--rule);font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--faint)}
+.stats span:last-child{border-right:0}
+.stats b{font-family:var(--serif);font-weight:700;font-size:1.9rem;letter-spacing:-.03em;color:var(--ink);display:block;line-height:1;margin-bottom:6px}
+
+/* ---------- barra fija ---------- */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(180%) blur(12px);-webkit-backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--rule)}
+.tabs{display:flex;gap:28px;padding:0;border-bottom:1px solid var(--rule);margin-bottom:-1px}
+.tab{background:none;border:0;padding:15px 0 13px;font-weight:600;font-size:.93rem;color:var(--soft);position:relative;letter-spacing:-.01em}
+.tab::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:transparent}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected="true"]{color:var(--ink)}
+.tab[aria-selected="true"]::after{background:var(--ink)}
+.controls{padding:14px 0 15px;display:grid;gap:10px;min-width:0}
+.controls>*{min-width:0;max-width:100%}
+.search{position:relative}
+.search input{width:100%;font:inherit;font-size:16px;padding:11px 14px 11px 40px;border:1px solid var(--rule-2);border-radius:9px;background:var(--card);color:var(--ink);box-shadow:var(--shadow-s);transition:border-color .15s,box-shadow .15s}
+.search input::placeholder{color:var(--faint)}
+.search input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--faint);fill:none;stroke-width:2;pointer-events:none}
+
+/* ---------- carruseles ---------- */
+.scroller{position:relative;min-width:0;max-width:100%}
+.scroller::before,.scroller::after{content:"";position:absolute;top:0;bottom:0;width:52px;pointer-events:none;z-index:2;opacity:0;transition:opacity .2s}
+.scroller::before{left:0;background:linear-gradient(90deg,var(--bg) 25%,transparent)}
+.scroller::after{right:0;background:linear-gradient(270deg,var(--bg) 25%,transparent)}
+.scroller.can-l::before,.scroller.can-r::after{opacity:1}
+.sc{position:absolute;top:calc(50% - 5px);transform:translateY(-50%);z-index:3;width:28px;height:28px;padding:0;border-radius:50%;border:1px solid var(--rule-2);background:var(--card);color:var(--ink-2);display:grid;place-items:center;box-shadow:0 2px 8px -2px rgba(14,17,22,.25)}
+.sc:hover{border-color:var(--ink);color:var(--ink)}
+.sc:active{transform:translateY(-50%) scale(.92)}
+.scroller::before,.scroller::after{bottom:12px}
+.sc svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.sc-l{left:-4px}.sc-r{right:-4px}
+.sc[hidden]{display:none}
+.chiprow{display:flex;gap:6px;overflow-x:auto;scroll-behavior:smooth;padding:2px 0 12px;min-width:0;
+  scrollbar-width:thin;scrollbar-color:var(--rule-2) transparent;-webkit-overflow-scrolling:touch;cursor:grab}
+.chiprow.dragging{cursor:grabbing;scroll-behavior:auto;user-select:none}
+.chiprow::-webkit-scrollbar{height:7px}
+.chiprow::-webkit-scrollbar-track{background:var(--tint);border-radius:999px}
+.chiprow::-webkit-scrollbar-thumb{background:var(--rule-2);border-radius:999px}
+.chiprow::-webkit-scrollbar-thumb:hover{background:var(--soft)}
+.fchip{flex:0 0 auto;border:1px solid var(--rule-2);background:var(--card);color:var(--ink-2);border-radius:7px;padding:7px 13px;font-size:.85rem;font-weight:500;white-space:nowrap;transition:background .14s,border-color .14s,color .14s}
+.fchip:hover{border-color:var(--ink);color:var(--ink)}
+.fchip[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg);font-weight:600}
+.fchip .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:8px;vertical-align:1px}
+.fchip[aria-pressed="true"] .dot{opacity:.95}
+.seg{display:inline-flex;border:1px solid var(--rule-2);border-radius:8px;overflow:hidden;background:var(--card);padding:3px;gap:2px}
+.seg button{background:transparent;border:0;border-radius:6px;padding:6px 13px;font-size:.84rem;font-weight:600;color:var(--soft)}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--tint);color:var(--ink);box-shadow:var(--shadow-s)}
+.rowline{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.count{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--faint)}
+
+/* ---------- fichas ---------- */
+main{padding:26px 0 80px}
+.group-title{display:flex;align-items:center;gap:14px;margin:40px 0 16px;font-weight:600;font-size:.94rem;letter-spacing:.01em;color:var(--ink)}
+.group-title .gt{white-space:nowrap}
+.group-title .line{flex:1;height:1px;background:var(--rule)}
+.group-title small{font-family:var(--mono);font-size:10.5px;font-weight:600;color:var(--faint)}
+.grid{display:grid;gap:14px;grid-template-columns:1fr}
+@media (min-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1080px){.grid{grid-template-columns:repeat(3,1fr)}}
+
+.card{position:relative;background:var(--card);border:1px solid var(--rule);border-radius:12px;display:flex;flex-direction:column;box-shadow:var(--shadow-s);transition:border-color .16s,box-shadow .16s,transform .16s;overflow:hidden}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--acc);opacity:.85}
+@media (hover:hover){.card:hover{border-color:var(--rule-2);box-shadow:var(--shadow-m);transform:translateY(-1px)}}
+.card.faded{opacity:.62}
+.meta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px 0;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+.meta .who{display:inline-flex;align-items:center;gap:7px;color:var(--acc);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meta .who i{width:6px;height:6px;border-radius:50%;background:var(--acc);flex:0 0 auto}
+.meta .cat{color:var(--faint);white-space:nowrap;letter-spacing:.1em}
+.body{padding:8px 18px 18px;display:flex;flex-direction:column;gap:14px;flex:1}
+.head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.name{font-family:var(--serif);font-weight:700;font-size:1.35rem;line-height:1.12;letter-spacing:-.022em;margin:0}
+.have{flex:0 0 auto;border:1px solid var(--rule-2);background:var(--card);border-radius:7px;font-size:.73rem;font-weight:600;padding:4px 10px;color:var(--soft);white-space:nowrap;transition:.14s}
+.have:hover{border-color:var(--ink);color:var(--ink)}
+.have[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.lbl{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin:0 0 8px}
+.ladder{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ladder li{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:center;font-size:.9rem;color:var(--ink-2)}
+.step{display:flex;align-items:flex-end;gap:2px;height:13px}
+.step i{display:block;width:3px;background:var(--rule-2);border-radius:1px}
+.step i.on{background:var(--acc)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:.79rem;padding:3px 9px;border-radius:6px;background:var(--tint);color:var(--ink-2)}
+.chip.alt{display:inline-flex;align-items:center;gap:7px;font-weight:500}
+.chip.alt i{width:6px;height:6px;border-radius:50%;flex:0 0 auto}
+.fmt{font-family:var(--mono);font-size:.71rem;letter-spacing:.03em;padding:3px 8px;border:1px solid var(--rule);border-radius:6px;color:var(--soft)}
+.warn{font-size:.82rem;background:var(--tint);border:1px solid var(--rule);border-left:2px solid var(--acc);border-radius:0 8px 8px 0;padding:10px 12px;color:var(--soft);line-height:1.5}
+.warn b{color:var(--ink)}
+mark{background:var(--hl);color:var(--ink);border-radius:2px;padding:0 2px}
+.empty{padding:60px 0;text-align:center;color:var(--soft)}
+
+/* ---------- modo pedido ---------- */
+.suppliers{display:grid;gap:10px;grid-template-columns:repeat(2,1fr)}
+@media (min-width:720px){.suppliers{grid-template-columns:repeat(4,1fr)}}
+.sbtn{text-align:left;border:1px solid var(--rule);background:var(--card);border-radius:10px;padding:14px;box-shadow:var(--shadow-s);transition:.15s}
+.sbtn:hover{border-color:var(--rule-2)}
+.sbtn b{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.95rem;letter-spacing:-.01em}
+.sbtn b::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--acc);flex:0 0 auto}
+.sbtn span{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);margin-top:6px;padding-left:15px}
+.sbtn[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.order{margin-top:24px;background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:24px;box-shadow:var(--shadow-s);position:relative;overflow:hidden}
+.order::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--acc)}
+.order h2{font-family:var(--serif);font-weight:700;font-size:1.65rem;letter-spacing:-.028em;margin:0 0 4px}
+.order .sub{color:var(--soft);margin:0 0 18px;font-size:.92rem;max-width:64ch}
+.olist{list-style:none;margin:0;padding:0}
+.olist li{border-top:1px solid var(--rule);padding:12px 0;display:grid;grid-template-columns:26px 1fr auto;gap:12px;align-items:start}
+.olist input[type=checkbox]{width:18px;height:18px;margin-top:3px;accent-color:var(--ink)}
+.olist .ln{font-weight:600}
+.olist .ls{font-size:.82rem;color:var(--soft)}
+.olist .qty{width:66px;font:inherit;font-size:16px;padding:5px 9px;border:1px solid var(--rule-2);border-radius:7px;background:var(--bg);color:var(--ink)}
+.olist .qty:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.oact{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}
+.btn{border:1px solid var(--ink);background:var(--ink);color:var(--bg);border-radius:8px;padding:10px 17px;font-weight:600;font-size:.88rem;transition:.15s}
+.btn:hover{opacity:.88}
+.btn.ghost{background:var(--card);color:var(--ink);border-color:var(--rule-2)}
+.btn.ghost:hover{border-color:var(--ink);opacity:1}
+textarea.out{width:100%;min-height:160px;margin-top:12px;font-family:var(--mono);font-size:13px;padding:12px;border:1px solid var(--rule-2);border-radius:9px;background:var(--bg);color:var(--ink)}
+.subhead{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin:26px 0 4px}
+
+/* ---------- proveedores ---------- */
+.pcards{display:grid;gap:14px;grid-template-columns:1fr}
+@media (min-width:780px){.pcards{grid-template-columns:repeat(2,1fr)}}
+.pcard{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:20px;box-shadow:var(--shadow-s);position:relative;overflow:hidden}
+.pcard::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--acc)}
+.pcard h3{margin:0 0 5px;display:flex;align-items:center;gap:9px;font-family:var(--serif);font-weight:700;font-size:1.3rem;letter-spacing:-.025em;color:var(--ink)}
+.pcard h3 i{width:8px;height:8px;border-radius:50%;background:var(--acc);flex:0 0 auto}
+.pcard .legal{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.pcard p{margin:13px 0 0;font-size:.92rem;color:var(--ink-2)}
+.pcard .go{margin-top:16px}
+.rules{display:grid;gap:14px;grid-template-columns:1fr;margin-bottom:30px}
+@media (min-width:780px){.rules{grid-template-columns:repeat(3,1fr)}}
+.rule{background:var(--card);border:1px solid var(--rule);border-radius:12px;padding:18px;font-size:.9rem;color:var(--soft);box-shadow:var(--shadow-s)}
+.rule b{font-family:var(--serif);display:block;font-size:1.08rem;font-weight:700;letter-spacing:-.02em;margin-bottom:7px;color:var(--ink)}
+
+footer{border-top:1px solid var(--rule);margin-top:20px;padding:26px 0 50px;color:var(--faint);font-size:.83rem;line-height:1.6}
+footer p{max-width:74ch}
+[hidden]{display:none!important}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+@media print{
+  .bar,.hero,.topnav,.suppliers,.oact,footer,.tabs,.sc{display:none!important}
+  body{background:#fff;color:#000}
+  .order{border:0;box-shadow:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap nav-in">
+    <span class="wordmark"><span class="mk">LG</span>La Góndola</span>
+    <span class="navmeta">Guía de proveedores · Botillería</span>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker"><i></i>Actualizado a septiembre 2026</p>
+    <h1>Quién te trae cada producto de tu botillería</h1>
+    <p class="lede">Busca cualquier marca y ve al instante qué proveedor te la factura, qué líneas tiene y en qué formatos viene. Cuando toque reponer, arma la lista por proveedor y cópiala para enviarla.</p>
+    <div class="stats" id="stats"></div>
+  </div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-view="buscar">Buscar</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="pedido">Armar pedido</button>
+      <button class="tab" role="tab" aria-selected="false" data-view="proveedores">Proveedores</button>
+    </div>
+    <div class="controls" id="ctrl-buscar">
+      <div class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Busca: Gato, Corona, Johnnie, sour, caja…" autocomplete="off" aria-label="Buscar producto">
+      </div>
+      <div class="scroller"><button class="sc sc-l" data-scroll="-1" aria-label="Desplazar a la izquierda" hidden><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div class="chiprow" id="catChips" aria-label="Categorías"></div><button class="sc sc-r" data-scroll="1" aria-label="Desplazar a la derecha" hidden><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>
+      <div class="scroller"><button class="sc sc-l" data-scroll="-1" aria-label="Desplazar a la izquierda" hidden><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button><div class="chiprow" id="supChips" aria-label="Proveedores"></div><button class="sc sc-r" data-scroll="1" aria-label="Desplazar a la derecha" hidden><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button></div>
+      <div class="rowline">
+        <div class="seg" id="haveSeg">
+          <button data-h="all" aria-pressed="false">Todo</button>
+          <button data-h="1" aria-pressed="true">Lo que tengo</button>
+          <button data-h="0" aria-pressed="false">Para ampliar</button>
+        </div>
+        <span class="count" id="count"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <section id="view-buscar"><div id="results"></div></section>
+
+  <section id="view-pedido" hidden>
+    <p class="lede" style="margin:4px 0 14px">Elige un proveedor. Verás primero lo que ya vendes y abajo lo que ese mismo proveedor podría traerte. Marca lo que te falta, anota cantidad y copia la lista.</p>
+    <div class="suppliers" id="supBtns"></div>
+    <div id="orderBox"></div>
+  </section>
+
+  <section id="view-proveedores" hidden>
+    <div class="rules">
+      <div class="rule"><b>Quien fabrica no siempre es quien te vende.</b>Corona la hace AB InBev, pero te la factura Coca-Cola Andina. Bombay es de Bacardí, pero en Chile la reparte Grupo Cepas.</div>
+      <div class="rule"><b>Los contratos se mueven.</b>Pernod Ricard pasó de DESA a Pisquera. Diageo pasó de Peumo a Andina. Campari vendió Cinzano en 2025. Tu factura siempre manda.</div>
+      <div class="rule"><b>El sello "confirmar" es honesto.</b>Marca las fichas donde no pude verificar quién es el distribuidor actual. Cuando lo sepas por factura, anótalo y deja de ser duda.</div>
+    </div>
+    <div class="pcards" id="pcards"></div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <p>Datos armados con los catálogos públicos de cada empresa y prensa especializada a septiembre de 2026. Las líneas y formatos son los habituales de cada familia: no todos los SKU están siempre disponibles para botillería, y cada proveedor maneja su propio surtido por zona. Los productos que marques como "Lo tengo" y tus pedidos se guardan solo en este navegador.</p>
+</footer>
+
+<script>
+(function(){
+"use strict";
+
+/* ============ PROVEEDORES ============ */
+var S = {
+  ccu:   {n:"CCU", legal:"Compañía Cervecerías Unidas", d:"Cerveza masiva y artesanal, gaseosas CCU y Pepsi, aguas, jugos, energéticas. Es dueña de VSPT y de Pisquera de Chile, pero esas facturan aparte."},
+  vspt:  {n:"VSPT · Viña San Pedro", legal:"VSPT Wine Group · filial de CCU", d:"Solo vino y espumante: San Pedro, Tarapacá, Santa Helena, Misiones de Rengo, Leyda, Viñamar, Casa Rivas. Fuerte en rotación diaria y gran reserva."},
+  cpch:  {n:"Pisquera de Chile", legal:"Compañía Pisquera de Chile · CCU + Control", d:"Piscos Mistral, Control, Campanario, Horcón Quemado, Tres Erres. Además reparte todo Pernod Ricard (Absolut, Chivas, Havana, Beefeater) y Fernet Branca."},
+  andina:{n:"Coca-Cola Andina", legal:"Embotelladora Andina", d:"Sistema Coca-Cola, cervezas AB InBev (Corona, Becker, Budweiser), destilados Diageo (Johnnie Walker, Smirnoff, Baileys), pisco Capel y vinos Santa Rita."},
+  peumo: {n:"Peumo · VCT Chile", legal:"Distribuidora de Viña Concha y Toro", d:"Vino Concha y Toro de punta a punta (Casillero, Marqués, Don Melchor), Cono Sur, Emiliana. Más cervezas Kross, Estrella Damm, Miller y pisco Malpaso."},
+  desa:  {n:"DESA", legal:"Distribución y Excelencia S.A.", d:"Importados premium: Jack Daniel's, Jägermeister, Aperol, Stoli, Herradura. Vinos Errázuriz y Undurraga, cervezas Peroni y Estrella Galicia."},
+  negra: {n:"La Negra", legal:"Distribuidora mayorista multimarca", d:"No tiene marcas propias: compra a los demás y revende. Te trae Doña Dominga, Barceló, Valdivieso, Spirit y los Miguel Torres, y además dobla marcas que ya tienes con DESA, como Jägermeister, Secreto Peruano y Mr. Big. En esas, compara precio por unidad antes de decidir."},
+  otros: {n:"Otros proveedores", legal:"Fuera de tus siete habituales", d:"Marcas con distribuidor propio (Grupo Cepas, Miguel Torres, Casa Silva, Score) o cuyo distribuidor hay que confirmar. Si no tienes cuenta directa, pregunta primero en La Negra."}
+};
+var ORDER = ["ccu","vspt","cpch","andina","peumo","desa","negra","otros"];
+
+/* ============ CATEGORÍAS ============ */
+var C = {
+  cerveza:{n:"Cerveza", e:"🍺"}, vino:{n:"Vino", e:"🍷"}, burbuja:{n:"Espumante y cóctel de vino", e:"🥂"},
+  pisco:{n:"Pisco y sour", e:"🍋"}, whisky:{n:"Whisky", e:"🥃"}, ron:{n:"Ron", e:"🏝️"},
+  tequila:{n:"Tequila", e:"🌵"}, gin:{n:"Gin", e:"🌿"}, vodka:{n:"Vodka", e:"❄️"},
+  licor:{n:"Licores y aperitivos", e:"🍒"}, rtd:{n:"Listos para tomar", e:"🥫"},
+  bebida:{n:"Bebidas y aguas", e:"🥤"}, energia:{n:"Energéticas y deportivas", e:"⚡"}, jugo:{n:"Jugos y té", e:"🧃"}
+};
+var CORDER = ["cerveza","vino","burbuja","pisco","whisky","ron","tequila","gin","vodka","licor","rtd","bebida","energia","jugo"];
+
+/* ============ PRODUCTOS ============
+   n nombre · s proveedor · c categoría · t 1=lo tengo 0=para ampliar
+   l escalera de líneas (económica → premium) · v variedades · f formatos
+   q 1 = distribuidor por confirmar · w quién es realmente (proveedores "otros") · x nota */
+var P = [
+/* ---- CERVEZA ---- */
+{n:"Escudo", s:"ccu", c:"cerveza", t:1, v:["Escudo","Escudo Silver","Escudo Negra","Escudo Sin Alcohol"], f:["Lata 350","Lata 470","Lata 710","Botella 1 L retornable","Botella 1,2 L"]},
+{n:"Dorada", s:"ccu", c:"cerveza", t:1, v:["Dorada"], f:["Lata 350","Lata 470","Botella 1 L retornable"]},
+{n:"Morenita", s:"ccu", c:"cerveza", t:1, v:["Morenita (negra dulce)"], f:["Lata 350","Lata 470","Botella 1 L retornable"]},
+{n:"Royal Guard", s:"ccu", c:"cerveza", t:1, v:["Royal Guard","Royal Black","Royal Amber"], f:["Lata 350","Lata 470","Botella 355","Botella 1 L retornable"]},
+{n:"Heineken", s:"ccu", c:"cerveza", t:1, v:["Heineken Original","Heineken 0.0","Heineken Silver"], f:["Lata 350","Lata 470","Botella 330","Botella 650","Botella 1 L retornable"]},
+{n:"Austral", s:"ccu", c:"cerveza", t:1, v:["Lager","Calafate","Torres del Paine","Yagán","Patagona Pale Ale"], f:["Botella 330","Lata 470"]},
+{n:"Kunstmann · Torobayo", s:"ccu", c:"cerveza", t:1, v:["Torobayo","Lager","Gran Torobayo","Bock","Sin Filtrar","Miel"], f:["Botella 330","Lata 470","Botella 1 L"]},
+{n:"D'olbek", s:"ccu", c:"cerveza", t:1, v:["Lager","Ale","Maqui tipo Ale"], f:["Botella 330"]},
+{n:"Blue Moon", s:"ccu", c:"cerveza", t:1, v:["Belgian White"], f:["Botella 355","Lata 470"]},
+{n:"Patagonia", s:"ccu", c:"cerveza", t:1, q:1, v:["Amber Lager","Weisse","24.7"], f:["Botella 355","Lata 470","Botella 730"], x:"CCU la muestra en su sitio de marcas, pero en otros países Patagonia es de AB InBev. Revisa si te la factura CCU o Andina."},
+{n:"Corona", s:"andina", c:"cerveza", t:1, v:["Corona Extra","Corona Cero","Corona Sunbrew"], f:["Botella 330","Botella 355","Botella 710","Lata 350","Lata 410","Botella 1 L retornable"]},
+{n:"Budweiser", s:"andina", c:"cerveza", t:1, v:["Budweiser","Budweiser Zero"], f:["Lata 350","Lata 470","Botella 343","Botella 1 L retornable"]},
+{n:"Becker", s:"andina", c:"cerveza", t:1, v:["Becker","Becker Zero"], f:["Lata 350","Lata 470","Lata 710","Botella 1 L retornable","Botella 1,2 L"]},
+{n:"Báltica", s:"andina", c:"cerveza", t:1, v:["Báltica"], f:["Lata 350","Lata 470","Lata 710","Botella 1 L retornable"]},
+{n:"Cusqueña", s:"andina", c:"cerveza", t:1, v:["Dorada","Negra","Roja","Trigo"], f:["Botella 330","Lata 355"]},
+{n:"Quilmes", s:"andina", c:"cerveza", t:1, v:["Clásica","Stout"], f:["Lata 350","Lata 470","Botella 1 L"]},
+{n:"Modelo", s:"andina", c:"cerveza", t:1, v:["Modelo Especial","Negra Modelo"], f:["Botella 355","Lata 355","Lata 710"]},
+{n:"Kross", s:"peumo", c:"cerveza", t:1, v:["Golden","Pilsner","Stout","Maibock","5","IPA"], f:["Botella 330","Lata 470"]},
+{n:"Miller", s:"peumo", c:"cerveza", t:1, v:["Genuine Draft"], f:["Botella 355","Lata 355","Lata 470"]},
+/* para ampliar */
+{n:"Cristal", s:"ccu", c:"cerveza", t:0, v:["Cristal","Cristal Light","Cristal Cero"], f:["Lata 350","Lata 470","Lata 710","Botella 1 L retornable","Botella 1,2 L"], x:"Es la cerveza más vendida de Chile. Si ya la vendes, márcala como \"Lo tengo\"."},
+{n:"Sol", s:"ccu", c:"cerveza", t:0, v:["Sol"], f:["Botella 330","Lata 350","Lata 470"]},
+{n:"Coors", s:"ccu", c:"cerveza", t:0, v:["Coors Original"], f:["Lata 350","Lata 470"]},
+{n:"Guayacán", s:"ccu", c:"cerveza", t:0, v:["Golden Ale","Stout","Diaguita"], f:["Botella 330"]},
+{n:"Stella Artois", s:"andina", c:"cerveza", t:0, v:["Stella Artois","Stella 0.0"], f:["Botella 330","Lata 470","Botella 975"]},
+{n:"Michelob Ultra", s:"andina", c:"cerveza", t:0, v:["Michelob Ultra"], f:["Botella 355","Lata 355"]},
+{n:"Estrella Damm", s:"peumo", c:"cerveza", t:0, v:["Estrella Damm","Voll-Damm","Free Damm"], f:["Botella 330","Lata 330"]},
+{n:"Peroni", s:"desa", c:"cerveza", t:0, v:["Nastro Azzurro","Peroni 0.0"], f:["Botella 330","Botella 620"]},
+{n:"Estrella Galicia", s:"desa", c:"cerveza", t:0, q:1, v:["Especial","1906","0,0"], f:["Botella 330","Lata 330"], x:"DESA la anunció en su portafolio, pero Andina también dice tener acuerdo con Estrella Galicia. Compara precio en ambas listas."},
+{n:"Mestra", s:"desa", c:"cerveza", t:0, v:["Artesanales Mestra"], f:["Botella 330","Lata 470"]},
+
+/* ---- VINO ---- */
+{n:"Gato", s:"vspt", c:"vino", t:1, l:["Gato (caja)","Gato Negro varietal","Gato Negro Reserva"], v:["Cabernet Sauvignon","Merlot","Carmenere","Sauvignon Blanc","Chardonnay","Rosé"], f:["Caja 1 L","Caja 2 L","Botella 750","Botella 1,5 L"]},
+{n:"Misiones de Rengo", s:"vspt", c:"vino", t:1, l:["Varietal","Reserva","Cuvée","Gran Reserva","Gran Reserva Etiqueta Negra","Red Blend"], v:["Cabernet Sauvignon","Carmenere","Merlot","Syrah","Sauvignon Blanc","Chardonnay"], f:["Botella 750","Botella 1,5 L"]},
+{n:"Castillo de Molina", s:"vspt", c:"vino", t:1, l:["Reserva","Gran Reserva"], v:["Cabernet Sauvignon","Carmenere","Merlot","Pinot Noir","Sauvignon Blanc","Chardonnay"], f:["Botella 375","Botella 750"]},
+{n:"Tarapacá", s:"vspt", c:"vino", t:1, l:["Gran Reserva","Gran Reserva Etiqueta Negra","Red Blend · etiqueta roja","Blue Blend · etiqueta azul"], v:["Cabernet Sauvignon","Carmenere","Merlot"], f:["Botella 750"], x:"Etiqueta Negra la vendes en Carmenere y Cabernet. Gran Reserva tradicional en Merlot, Carmenere y Cabernet."},
+{n:"1865", s:"vspt", c:"vino", t:1, l:["Selected Vineyards","Single Vineyard","Limited Edition"], v:["Cabernet Sauvignon","Carmenere","Syrah","Malbec","Sauvignon Blanc"], f:["Botella 750"]},
+{n:"Cabo de Hornos", s:"vspt", c:"vino", t:1, l:["Cabo de Hornos (ícono)"], v:["Cabernet Sauvignon"], f:["Botella 750"]},
+{n:"Sideral", s:"vspt", c:"vino", t:1, l:["Sideral (ensamblaje premium)"], v:["Blend tinto"], f:["Botella 750"]},
+{n:"Casillero del Diablo", s:"peumo", c:"vino", t:1, l:["Reserva","Reserva Privada","Devil's Collection"], v:["Cabernet Sauvignon","Carmenere","Merlot","Malbec","Syrah","Sauvignon Blanc","Chardonnay","Rosé"], f:["Botella 375","Botella 750","Botella 1,5 L"]},
+{n:"Diablo", s:"peumo", c:"vino", t:1, q:1, v:["Dark Red","Deep Carmenere","Dark Rosé","ediciones de temporada"], f:["Botella 750"], x:"Dark Red y Deep Carmenere están confirmados. La línea saca ediciones nuevas seguido: pídele a Peumo la lista vigente."},
+{n:"Marqués de Casa Concha", s:"peumo", c:"vino", t:1, q:1, l:["Marqués de Casa Concha (varietales)","Etiqueta Negra","Heritage (ícono)"], v:["Cabernet Sauvignon","Carmenere","Merlot","Syrah","Malbec","Chardonnay","Pinot Noir"], f:["Botella 750","Botella 1,5 L"], x:"Ojo: Marqués NO usa las palabras Reserva / Gran Reserva. Su categoría es súper premium. Confirma con Peumo qué líneas tienen hoy para botillería."},
+{n:"Concha y Toro", s:"peumo", c:"vino", t:1, l:["Clos de Pirque / Tocornal (caja)","Exportación","Frontera","Sunrise","Reservado","Gran Reserva Serie Riberas"], v:["Cabernet Sauvignon","Merlot","Carmenere","Sauvignon Blanc","Chardonnay","Rosé"], f:["Caja 1 L","Caja 2 L","Botella 750","Botella 1,5 L"]},
+{n:"Santa Emiliana", s:"peumo", c:"vino", t:1, l:["Varietal"], v:["Cabernet Sauvignon","Merlot","Carmenere","Sauvignon Blanc"], f:["Botella 750","Caja 1 L","Caja 2 L"]},
+{n:"120 Tres Medallas", s:"andina", c:"vino", t:1, l:["120 Tres Medallas (reserva)"], v:["Cabernet Sauvignon","Carmenere","Merlot","Sauvignon Blanc","Chardonnay"], f:["Botella 750"], x:"Es de Viña Santa Rita. Aparece en el catálogo de vinos de Andina."},
+{n:"Doña Dominga", s:"otros", w:"Casa Silva", alt:["negra"], c:"vino", t:1, l:["Clásico de Familia","Reserva","Reserva de Familia","Gran Reserva"], v:["Cabernet Sauvignon","Carmenere","Syrah","Cabernet-Carmenere","Sauvignon Blanc"], f:["Botella 750"], x:"Viña independiente de Colchagua. Te llega por La Negra. Si subes el volumen, conviene pedir cuenta directa con Casa Silva."},
+{n:"Las Mulas", s:"otros", w:"Miguel Torres Chile", alt:["negra"], c:"vino", t:1, l:["Reserva orgánico"], v:["Carmenere","Cabernet Sauvignon","Merlot"], f:["Botella 750"]},
+{n:"Santa Digna", s:"otros", w:"Miguel Torres Chile", alt:["negra"], c:"vino", t:1, l:["Reserva","Gran Reserva"], v:["Cabernet Sauvignon","Carmenere","Rosé","Sauvignon Blanc"], f:["Botella 750"]},
+{n:"Bestia Azul", s:"otros", w:"Bestias Wines (Maule)", c:"vino", t:1, l:["Reserva"], v:["Cabernet Sauvignon","Merlot","Carmenere"], f:["Botella 750"]},
+{n:"Toro de Piedra", s:"otros", w:"Viña Requingua", q:1, c:"vino", t:1, l:["Reserva","Gran Reserva"], v:["Cabernet Sauvignon","Carmenere","Syrah"], f:["Botella 750"], x:"Viña de Curicó con venta propia. Confirma por factura quién te la trae."},
+{n:"Oveja Negra", s:"otros", w:"VIA Wines", q:1, c:"vino", t:1, l:["Reserva","Gran Reserva"], v:["Cabernet Franc-Carmenere","Cabernet Sauvignon-Syrah","Sauvignon Blanc"], f:["Botella 750"], x:"Revisa tu factura: puede llegarte directo de la viña o vía mayorista."},
+{n:"Centenario vino añejo", s:"otros", w:"Por confirmar", q:1, c:"vino", t:1, v:["Tinto añejo"], f:["Botella 750"], x:"No pude verificar la viña ni el distribuidor. Anótalo desde tu próxima factura."},
+/* para ampliar */
+{n:"Santa Helena", s:"vspt", c:"vino", t:0, l:["Varietal","Reserva","Selección del Directorio"], v:["Cabernet Sauvignon","Merlot","Carmenere"], f:["Botella 750","Caja 2 L"]},
+{n:"35 Sur", s:"vspt", c:"vino", t:0, l:["Varietal","Reserva"], v:["Cabernet Sauvignon","Sauvignon Blanc","Carmenere"], f:["Botella 750"]},
+{n:"Leyda", s:"vspt", c:"vino", t:0, l:["Reserva","Single Vineyard"], v:["Sauvignon Blanc","Pinot Noir","Chardonnay"], f:["Botella 750"]},
+{n:"Cono Sur", s:"peumo", c:"vino", t:0, l:["Bicicleta","Orgánico","Reserva Especial","20 Barriles","Ocio"], v:["Pinot Noir","Cabernet Sauvignon","Carmenere","Sauvignon Blanc"], f:["Botella 750"]},
+{n:"Don Melchor", s:"peumo", c:"vino", t:0, l:["Don Melchor (ícono)"], v:["Cabernet Sauvignon"], f:["Botella 750"]},
+{n:"Santa Rita", s:"andina", c:"vino", t:0, l:["Medalla Real","Secret Reserve","Casa Real"], v:["Cabernet Sauvignon","Carmenere","Merlot"], f:["Botella 750"]},
+{n:"Carmen", s:"andina", c:"vino", t:0, l:["Reserva","Gran Reserva"], v:["Cabernet Sauvignon","Carmenere"], f:["Botella 750"]},
+{n:"Errázuriz", s:"desa", c:"vino", t:0, l:["Estate","Max Reserva","Aconcagua Costa"], v:["Cabernet Sauvignon","Carmenere","Sauvignon Blanc"], f:["Botella 750"]},
+{n:"Undurraga", s:"desa", c:"vino", t:0, l:["Varietal","Sibaris Gran Reserva","T.H."], v:["Cabernet Sauvignon","Carmenere","Sauvignon Blanc"], f:["Botella 750"]},
+
+/* ---- ESPUMANTE Y CÓCTEL DE VINO ---- */
+{n:"Viñamar", s:"vspt", c:"burbuja", t:1, v:["Brut","Extra Brut","Rosé","Moscato","Demi Sec"], f:["Botella 187","Botella 750"]},
+{n:"Riccadonna", s:"desa", c:"burbuja", t:1, v:["Asti","Ruby","Prosecco","Rosé"], f:["Botella 750"]},
+{n:"Valdivieso", s:"negra", c:"burbuja", t:1, v:["Brut","Extra Brut","Demi Sec","Rosé","Nature"], f:["Botella 187","Botella 750"], x:"Espumantes de Viña Valdivieso. Te llegan por La Negra."},
+{n:"Ópera", s:"otros", w:"Por confirmar", q:1, c:"burbuja", t:1, v:["Espumantes Ópera"], f:["Botella 750"], x:"No pude verificar el distribuidor. Anótalo desde tu próxima factura."},
+{n:"Donnaluna", s:"otros", w:"Por confirmar", q:1, c:"burbuja", t:1, v:["Espumantes Donnaluna"], f:["Botella 750"], x:"No pude verificar el distribuidor. Anótalo desde tu próxima factura."},
+{n:"Manquehuito", s:"otros", w:"Por confirmar", q:1, c:"burbuja", t:1, v:["Piña","Frutos rojos"], f:["Botellín","Botella 750","Botella 1,35 L","Lata 375"], x:"Cóctel de vino (pop wine) chileno. Revisa tu factura para saber quién lo reparte."},
+{n:"Sensus · Amaranta", s:"andina", c:"burbuja", t:0, v:["Brut","Extra Brut","Moscato","Rosé"], f:["Botella 750"]},
+
+/* ---- PISCO Y SOUR ---- */
+{n:"Campanario", s:"cpch", c:"pisco", t:1, v:["Pisco 35°","Sour","Sour Light","Cóctel"], f:["Botella 750","Botella 1 L","Botella 1,5 L"]},
+{n:"Horcón Quemado", s:"cpch", c:"pisco", t:1, l:["Pisco 35°","Pisco 40°","Pisco 46° reservado"], v:["Sour"], f:["Botella 750","Botella 1 L"]},
+{n:"Capel", s:"andina", c:"pisco", t:1, v:["Pisco 35°","Reservado 40°","Doble Destilado","Sour","Capel Ice / cócteles"], f:["Botella 375","Botella 750","Botella 1 L","Botella 1,5 L","Lata"]},
+{n:"Secreto Peruano", s:"desa", alt:["negra"], c:"pisco", t:1, v:["Sour"], f:["Botella 750","Botella 1 L"]},
+{n:"Andino Sour", s:"otros", w:"Por confirmar", q:1, c:"pisco", t:1, v:["Sour"], f:["Botella 750","Botella 1 L"], x:"No pude verificar el fabricante ni el distribuidor. Anótalo desde tu próxima factura."},
+/* para ampliar */
+{n:"Mistral", s:"cpch", c:"pisco", t:0, l:["35°","40°","Nobel","Gran Nobel"], f:["Botella 750","Botella 1 L"]},
+{n:"Control C", s:"cpch", c:"pisco", t:0, l:["35°","40°","Reservado"], f:["Botella 750","Botella 1 L","Botella 1,5 L"]},
+{n:"Tres Erres", s:"cpch", c:"pisco", t:0, l:["35°","40°"], v:["Sour"], f:["Botella 750","Botella 1 L"]},
+{n:"Alto del Carmen", s:"andina", c:"pisco", t:0, l:["35°","40°","Reservado"], f:["Botella 750","Botella 1 L"]},
+{n:"Malpaso", s:"peumo", c:"pisco", t:0, l:["35°","40°","Reservado"], f:["Botella 750"]},
+{n:"Republicano", s:"desa", c:"pisco", t:0, v:["Pisco"], f:["Botella 750"]},
+
+/* ---- WHISKY ---- */
+{n:"Johnnie Walker", s:"andina", c:"whisky", t:1, l:["Red Label","Black Label","Double Black","Gold Reserve","18 años","Blue Label"], f:["Botella 200","Botella 375","Botella 750","Botella 1 L"]},
+{n:"Buchanan's", s:"andina", c:"whisky", t:1, l:["Deluxe 12","Master","Special Reserve 18"], f:["Botella 750","Botella 1 L"]},
+{n:"Old Parr", s:"andina", c:"whisky", t:1, q:1, l:["12 años","Silver","Superior 18"], f:["Botella 750","Botella 1 L"], x:"Es de Diageo, como Johnnie Walker, así que debería venir por Andina. No aparece destacado en su catálogo: confirma disponibilidad."},
+{n:"White Horse", s:"andina", c:"whisky", t:1, q:1, l:["White Horse"], f:["Botella 750","Botella 1 L"], x:"Marca Diageo. Confirma que Andina la tenga en tu zona."},
+{n:"Chivas Regal", s:"cpch", c:"whisky", t:1, l:["12 años","Extra 13","Mizunara","18 años"], f:["Botella 375","Botella 750","Botella 1 L"]},
+{n:"Ballantine's", s:"cpch", c:"whisky", t:1, l:["Finest","7 años","12 años","17 años"], f:["Botella 750","Botella 1 L"]},
+{n:"Jack Daniel's", s:"desa", c:"whisky", t:1, l:["Old No. 7","Honey","Fire","Apple","Gentleman Jack","Single Barrel"], f:["Botella 375","Botella 750","Botella 1 L"]},
+{n:"Monkey Shoulder", s:"desa", c:"whisky", t:1, q:1, l:["Blended Malt"], f:["Botella 700"], x:"Es de William Grant & Sons, igual que Grant's, que trae DESA. Confirma en tu factura."},
+{n:"Jim Beam", s:"otros", w:"Grupo Cepas", c:"whisky", t:1, l:["White","Honey","Apple","Black"], f:["Botella 750","Botella 1 L"], x:"Grupo Cepas maneja el portafolio Suntory en Chile. El mercado es abierto: también puede llegarte por mayorista."},
+{n:"Blenders", s:"otros", w:"Por confirmar", q:1, c:"whisky", t:1, v:["Blended"], f:["Botella 750","Botella 1 L"], x:"No pude verificar el distribuidor. Anótalo desde tu próxima factura."},
+/* para ampliar */
+{n:"Jameson", s:"cpch", c:"whisky", t:0, l:["Original","Black Barrel"], f:["Botella 750","Botella 1 L"]},
+{n:"Bulleit", s:"andina", c:"whisky", t:0, l:["Bourbon","Rye"], f:["Botella 750"]},
+{n:"Grant's", s:"desa", c:"whisky", t:1, l:["Triple Wood","8 años","12 años"], f:["Botella 750","Botella 1 L"]},
+{n:"Dewar's · William Lawson's", s:"otros", w:"Grupo Cepas", c:"whisky", t:0, l:["William Lawson's","Dewar's White Label","Dewar's 12"], f:["Botella 750","Botella 1 L"]},
+
+/* ---- RON ---- */
+{n:"Havana Club", s:"cpch", c:"ron", t:1, l:["Añejo 3 años","Añejo Especial","Añejo 7 años"], f:["Botella 750","Botella 1 L"]},
+{n:"Cabo Viejo", s:"cpch", c:"ron", t:1, v:["Blanco","Dorado"], f:["Botella 750","Botella 1 L"]},
+{n:"Malibu", s:"cpch", c:"ron", t:1, v:["Coco"], f:["Botella 750","Botella 1 L"]},
+{n:"Pampero", s:"andina", c:"ron", t:1, q:1, l:["Blanco","Especial","Añejo Selección"], f:["Botella 750","Botella 1 L"], x:"Marca Diageo. Confirma que Andina la tenga para botillería."},
+{n:"Bacardí", s:"otros", w:"Grupo Cepas", c:"ron", t:1, l:["Carta Blanca","Carta Oro","Carta Negra","Reserva 8"], v:["Limón","Mango Chile"], f:["Botella 750","Botella 1 L","Botella 1,75 L"]},
+{n:"Santa Teresa", s:"otros", w:"Grupo Cepas", q:1, c:"ron", t:1, l:["Claro","Gran Reserva","1796"], f:["Botella 750"], x:"Hoy es marca de Bacardí, así que debería llegar por Grupo Cepas. Confirma."},
+{n:"Barceló", s:"negra", c:"ron", t:1, l:["Blanco","Dorado","Añejo","Gran Añejo","Imperial"], f:["Botella 750","Botella 1 L"]},
+{n:"Ron Abuelo", s:"otros", w:"Por confirmar", q:1, c:"ron", t:1, l:["Añejo","7 años","12 años"], f:["Botella 750"], x:"No pude verificar el importador en Chile."},
+{n:"Madero", s:"otros", w:"Por confirmar", q:1, c:"ron", t:1, v:["Ron Madero"], f:["Botella 750","Botella 1 L"], x:"No pude verificar fabricante ni distribuidor. Anótalo desde tu próxima factura."},
+/* para ampliar */
+{n:"Sierra Morena", s:"cpch", c:"ron", t:0, v:["Blanco","Dorado","Mojito RTD"], f:["Botella 750","Botella 1 L"]},
+{n:"Captain Morgan", s:"andina", c:"ron", t:0, v:["Spiced Gold","White"], f:["Botella 750","Botella 1 L"]},
+{n:"Zacapa", s:"andina", c:"ron", t:0, l:["23","XO"], f:["Botella 750"]},
+{n:"Flor de Caña", s:"desa", c:"ron", t:0, l:["4 años","7 años","12 años","18 años"], f:["Botella 750"]},
+
+/* ---- TEQUILA ---- */
+{n:"Olmeca", s:"cpch", c:"tequila", t:1, l:["Blanco","Gold","Reposado","Altos Plata"], f:["Botella 750","Botella 1 L"]},
+{n:"Don Julio", s:"andina", c:"tequila", t:1, l:["Blanco","Reposado","Añejo","70 Cristalino","1942"], f:["Botella 750"]},
+{n:"Herradura", s:"desa", c:"tequila", t:1, l:["Plata","Reposado","Añejo","Ultra"], f:["Botella 750"]},
+{n:"José Cuervo", s:"otros", w:"Por confirmar", q:1, c:"tequila", t:1, l:["Especial Silver","Especial Reposado","Tradicional","1800"], f:["Botella 375","Botella 750","Botella 1 L"], x:"No pude verificar el importador en Chile. Lo venden varios mayoristas: revisa tu factura."},
+{n:"Sombrero Negro", s:"otros", w:"Por confirmar", q:1, c:"tequila", t:1, v:["Blanco","Dorado"], f:["Botella 750"], x:"No pude verificar el distribuidor."},
+{n:"El Amo", s:"otros", w:"Por confirmar", q:1, c:"tequila", t:1, v:["Blanco","Reposado"], f:["Botella 750"], x:"No pude verificar el distribuidor."},
+/* para ampliar */
+{n:"el Jimador", s:"desa", c:"tequila", t:0, l:["Blanco","Reposado"], f:["Botella 750"]},
+
+/* ---- GIN ---- */
+{n:"Beefeater", s:"cpch", c:"gin", t:1, v:["London Dry","Pink","Blood Orange","24"], f:["Botella 750","Botella 1 L"]},
+{n:"Gin Kantal", s:"cpch", c:"gin", t:1, v:["Kantal","Kantal Pink"], f:["Botella 750"]},
+{n:"Tanqueray", s:"andina", c:"gin", t:1, v:["London Dry","Nº Ten","Flor de Sevilla","Rangpur"], f:["Botella 750","Botella 1 L"]},
+{n:"Bombay", s:"otros", w:"Grupo Cepas", c:"gin", t:1, v:["Sapphire","Bramble","Premier Cru"], f:["Botella 750","Botella 1 L"]},
+/* para ampliar */
+{n:"Gordon's", s:"andina", c:"gin", t:0, v:["London Dry","Pink"], f:["Botella 750"]},
+{n:"Engine", s:"desa", c:"gin", t:0, v:["Engine Gin"], f:["Botella 500"]},
+
+/* ---- VODKA ---- */
+{n:"Absolut", s:"cpch", c:"vodka", t:1, v:["Blue","Citron","Mandrin","Raspberri","Vanilia","Apeach","Mango"], f:["Botella 375","Botella 750","Botella 1 L"]},
+{n:"Smirnoff", s:"andina", c:"vodka", t:1, v:["Nº21 Red","Green Apple","Raspberry","Smirnoff Ice (RTD)"], f:["Botella 375","Botella 750","Botella 1 L","Botella 275 Ice","Lata Ice"]},
+{n:"Stoli", s:"desa", c:"vodka", t:1, v:["Stolichnaya","Elit","sabores"], f:["Botella 750","Botella 1 L"]},
+{n:"Eristoff", s:"otros", w:"Grupo Cepas", c:"vodka", t:1, v:["Original","Black","Red"], f:["Botella 750","Botella 1 L"]},
+/* para ampliar */
+{n:"Puklaro", s:"cpch", c:"vodka", t:0, v:["Vodka Puklaro"], f:["Botella 750"]},
+{n:"Grey Goose", s:"otros", w:"Grupo Cepas", c:"vodka", t:0, v:["Original"], f:["Botella 750"]},
+
+/* ---- LICORES Y APERITIVOS ---- */
+{n:"Jägermeister", s:"desa", alt:["negra"], c:"licor", t:1, v:["Original","Cold Brew Coffee","Manifest","Scharf"], f:["Mini 20 ml","Botella 200","Botella 700","Botella 1 L"]},
+{n:"Aperol", s:"desa", c:"licor", t:1, v:["Aperol","Aperol Spritz RTD"], f:["Botella 750","Botella 1 L"]},
+{n:"Campari", s:"desa", q:1, c:"licor", t:1, v:["Bitter"], f:["Botella 750","Botella 1 L"], x:"DESA ya trae Aperol (mismo dueño) y vende Campari en su tienda. Muy probable que te lo facture DESA: confírmalo."},
+{n:"Frangelico", s:"desa", q:1, c:"licor", t:1, v:["Avellana"], f:["Botella 700"], x:"Marca del grupo Campari. Debería venir por el mismo proveedor que te trae Campari."},
+{n:"Drambuie", s:"desa", q:1, c:"licor", t:1, v:["Original"], f:["Botella 750"], x:"Marca de William Grant & Sons (como Grant's, que trae DESA). Confirma en tu factura."},
+{n:"Fernet Branca", s:"cpch", c:"licor", t:1, v:["Fernet Branca","Branca Menta"], f:["Botella 750","Botella 1 L"]},
+{n:"Ramazzotti", s:"cpch", c:"licor", t:1, v:["Amaro","Aperitivo Rosato","Violetto"], f:["Botella 700","Botella 1 L"]},
+{n:"Kahlúa", s:"cpch", c:"licor", t:1, v:["Café"], f:["Botella 750","Botella 1 L"]},
+{n:"Baileys", s:"andina", c:"licor", t:1, v:["Original","Salted Caramel","Strawberry"], f:["Botella 375","Botella 750","Botella 1 L"]},
+{n:"Martini", s:"otros", w:"Grupo Cepas", c:"licor", t:1, v:["Rosso","Bianco","Extra Dry","Fiero","Asti / Prosecco"], f:["Botella 750","Botella 1 L"]},
+{n:"Cinzano", s:"otros", w:"Por confirmar", q:1, c:"licor", t:1, v:["Rosso","Bianco","Extra Dry"], f:["Botella 750","Botella 1 L"], x:"Campari vendió Cinzano al grupo italiano Caffo en 2025. El distribuidor en Chile puede haber cambiado: revisa tu última factura."},
+{n:"Amarula", s:"otros", w:"Por confirmar", q:1, c:"licor", t:1, v:["Cream","Vanilla Spice","Ethiopian Coffee"], f:["Botella 375","Botella 750"], x:"No pude verificar el importador en Chile."},
+{n:"Disaronno", s:"otros", w:"Por confirmar", q:1, c:"licor", t:1, v:["Originale","Velvet"], f:["Botella 700"], x:"No pude verificar el importador en Chile."},
+{n:"Licores Mitjans", s:"otros", w:"Licores Mitjans", q:1, c:"licor", t:1, v:["Menta","Cacao","Amaretto","Café","Triple Sec","Curaçao","Manzanilla","Anís","Fernet","Vermouth","Aspritz Rossard"], f:["Botella 750","Botella 1 L"], x:"Históricamente ligado a Santa Rita. Pregunta a Andina (trae vinos Santa Rita) o a La Negra."},
+{n:"Araucano", s:"otros", w:"Por confirmar", q:1, c:"licor", t:1, v:["Licor digestivo de hierbas"], f:["Botella 750","Botella 1 L"], x:"No pude verificar el fabricante actual ni el distribuidor."},
+/* para ampliar */
+{n:"Fehrenberg", s:"cpch", c:"licor", t:0, v:["Menta","Cacao","Guinda"], f:["Botella 750"]},
+{n:"Sheridan's", s:"desa", c:"licor", t:0, v:["Café-crema"], f:["Botella 700"]},
+{n:"Brujas de Salamanca", s:"andina", c:"licor", t:0, v:["Licores Brujas de Salamanca"], f:["Botella 750"]},
+
+/* ---- LISTOS PARA TOMAR ---- */
+{n:"Mistral Ice", s:"cpch", c:"rtd", t:1, v:["Original","Sabores"], f:["Botella 275","Lata 350"]},
+{n:"Spirit", s:"negra", c:"rtd", t:1, v:["Mojito","Lime","Berry","Cherry","Piña","Vodka Apple"], f:["Botella 275"], x:"MG Spirit, cóctel español de 5,5°. Confirmado: te llega por La Negra."},
+/* para ampliar */
+{n:"Campanario Cóctel · Bauzá Ice", s:"cpch", c:"rtd", t:0, v:["Sabores"], f:["Lata 350","Botella 275"]},
+{n:"Jack & Coke", s:"andina", c:"rtd", t:0, v:["Jack Daniel's con Coca-Cola"], f:["Lata 350"]},
+
+/* ---- BEBIDAS Y AGUAS ---- */
+{n:"Bebidas CCU", s:"ccu", c:"bebida", t:1, v:["Bilz","Pap","Kem","Kem Xtreme","Nobis","Crush","Canada Dry","Pepsi","7Up","Mirinda"], f:["Lata 350","Botella 591","Botella 1,5 L","Botella 2 L","Botella 3 L","Retornable 2 L"]},
+{n:"Cachantun", s:"ccu", c:"bebida", t:1, v:["Con gas","Sin gas","Mas (saborizada)"], f:["Botella 500","Botella 1,6 L","Botella 2 L"]},
+{n:"Bebidas Coca-Cola", s:"andina", c:"bebida", t:1, v:["Coca-Cola","Coca-Cola Sin Azúcar","Fanta","Sprite","Inca Kola","Schweppes","Nordic Mist"], f:["Lata 237","Lata 350","Botella 591","Botella 1,5 L","Botella 2 L","Botella 3 L","Retornable 1,25 L","Retornable 2 L"]},
+/* para ampliar */
+{n:"Vital · Benedictino", s:"andina", c:"bebida", t:0, v:["Vital con gas","Vital sin gas","Benedictino"], f:["Botella 600","Botella 1,6 L","Botella 3 L"]},
+{n:"Porvenir · Manantial", s:"ccu", c:"bebida", t:0, v:["Porvenir","Manantial"], f:["Botella 500","Bidón"]},
+
+/* ---- ENERGÉTICAS Y DEPORTIVAS ---- */
+{n:"Red Bull", s:"ccu", c:"energia", t:1, v:["Original","Sugarfree","Editions"], f:["Lata 250","Lata 355","Lata 473"]},
+{n:"Gatorade · Gatorlit", s:"ccu", c:"energia", t:1, v:["Gatorade sabores","Gatorlit"], f:["Botella 500","Botella 750","Botella 1 L"]},
+{n:"Monster", s:"andina", c:"energia", t:1, v:["Original","Ultra","Mango Loco","Juiced","Zero"], f:["Lata 473"]},
+{n:"Score", s:"otros", w:"Score Energy Drink", c:"energia", t:1, v:["Original","Guaraná","Sin azúcar","Aguas Score"], f:["Lata 473","Lata 500"], x:"Marca chilena con distribución propia. Es la energética más vendida del país."},
+/* para ampliar */
+{n:"Rockstar", s:"ccu", c:"energia", t:0, v:["Original","Sabores"], f:["Lata 473"], x:"Marca PepsiCo. Peumo también la ha tenido en catálogo: compara."},
+{n:"Powerade · Fastlyte", s:"andina", c:"energia", t:0, v:["Powerade","Fastlyte"], f:["Botella 500","Botella 1 L"]},
+{n:"Mr. Big", s:"desa", alt:["negra"], c:"energia", t:1, v:["Energética","Sin azúcar"], f:["Lata 473","Lata 500"]},
+
+/* ---- JUGOS Y TÉ ---- */
+{n:"Watt's", s:"ccu", c:"jugo", t:1, v:["Néctares","Watt's Selección","Watt's light"], f:["Caja 200","Botella 300","Caja 1 L","Botella 1,5 L"]},
+{n:"Lipton Ice Tea", s:"ccu", c:"jugo", t:1, v:["Limón","Durazno","Verde"], f:["Botella 500","Botella 1,5 L"]},
+/* para ampliar */
+{n:"Del Valle · Andina Juice", s:"andina", c:"jugo", t:0, v:["Del Valle","Kapo"], f:["Caja 200","Botella 1,5 L"]}
+];
+
+/* ============ ESTADO ============ */
+var LS_HAVE = "gondola-have-v1", LS_ORDER = "gondola-order-v1";
+function load(k){ try{ var r=localStorage.getItem(k); return r?JSON.parse(r):{}; }catch(e){ return {}; } }
+function save(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
+var haveOv = load(LS_HAVE);      // {nombre: 0|1}
+var orderSt = load(LS_ORDER);    // {nombre: cantidad}
+function has(p){ return (p.n in haveOv) ? haveOv[p.n] : p.t; }
+
+var st = {view:"buscar", q:"", cat:null, sup:null, h:"1", orderSup:null};
+
+/* ============ UTIL ============ */
+var $ = function(s,r){ return (r||document).querySelector(s); };
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function norm(s){ return String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
+function mark(text,q){
+  var t = esc(text); if(!q) return t;
+  var nt = norm(text), i = nt.indexOf(q);
+  if(i<0) return t;
+  return esc(text.slice(0,i))+"<mark>"+esc(text.slice(i,i+q.length))+"</mark>"+esc(text.slice(i+q.length));
+}
+function col(k){ return "var(--"+k+")"; }
+function alts(p){ return (p.alt||[]).map(function(k){ return S[k].n; }); }
+function inSup(p,k){ return p.s===k || (p.alt||[]).indexOf(k)>=0; }
+function hay(p){ return norm([p.n,p.w||"",S[p.s].n,C[p.c].n].concat(alts(p),p.l||[],p.v||[],p.f||[]).join(" ")); }
+
+/* ============ CARRUSELES ============ */
+function syncScroller(sc){
+  var row = sc.querySelector(".chiprow");
+  var l = sc.querySelector(".sc-l"), r = sc.querySelector(".sc-r");
+  var max = row.scrollWidth - row.clientWidth;
+  var canL = row.scrollLeft > 4, canR = row.scrollLeft < max - 4;
+  sc.classList.toggle("can-l", canL); sc.classList.toggle("can-r", canR);
+  if(l) l.hidden = !canL;
+  if(r) r.hidden = !canR;
+}
+function syncScrollers(){
+  document.querySelectorAll(".scroller").forEach(function(sc){
+    var row = sc.querySelector(".chiprow");
+    if(!row.dataset.bound){ row.dataset.bound = "1"; row.addEventListener("scroll", function(){ syncScroller(sc); }, {passive:true}); }
+    syncScroller(sc);
+  });
+}
+window.addEventListener("resize", syncScrollers);
+if(window.ResizeObserver){
+  var ro = new ResizeObserver(function(){ syncScrollers(); });
+  document.addEventListener("DOMContentLoaded", function(){
+    document.querySelectorAll(".chiprow").forEach(function(r){ ro.observe(r); });
+  });
+}
+/* arrastrar con el mouse en escritorio */
+document.addEventListener("pointerdown", function(e){
+  var row = e.target.closest(".chiprow");
+  if(!row || e.pointerType === "touch") return;
+  var startX = e.clientX, startL = row.scrollLeft, moved = false;
+  function move(ev){
+    var d = ev.clientX - startX;
+    if(Math.abs(d) > 3){ moved = true; row.classList.add("dragging"); }
+    if(moved){ row.scrollLeft = startL - d; }
+  }
+  function up(ev){
+    document.removeEventListener("pointermove", move);
+    document.removeEventListener("pointerup", up);
+    row.classList.remove("dragging");
+    if(moved){ ev.preventDefault(); var c = row.closest(".scroller"); if(c) syncScroller(c); }
+  }
+  document.addEventListener("pointermove", move);
+  document.addEventListener("pointerup", up);
+});
+
+/* ============ STATS ============ */
+function renderStats(){
+  var tengo = P.filter(has).length, conf = P.filter(function(p){return p.q && has(p);}).length;
+  $("#stats").innerHTML =
+    "<span><b>"+tengo+"</b>Familias que vendes</span>"+
+    "<span><b>"+(P.length-tengo)+"</b>Para ampliar</span>"+
+    "<span><b>"+conf+"</b>Por confirmar</span>";
+}
+
+/* ============ FILTROS ============ */
+function renderChips(){
+  var ch = '<button class="fchip" data-cat="" aria-pressed="'+(!st.cat)+'">Todas</button>';
+  CORDER.forEach(function(k){ ch += '<button class="fchip" data-cat="'+k+'" aria-pressed="'+(st.cat===k)+'">'+C[k].e+" "+C[k].n+"</button>"; });
+  $("#catChips").innerHTML = ch;
+  var sh = '<button class="fchip" data-sup="" aria-pressed="'+(!st.sup)+'">Todos los proveedores</button>';
+  ORDER.forEach(function(k){ sh += '<button class="fchip" data-sup="'+k+'" style="--c:'+col(k)+'" aria-pressed="'+(st.sup===k)+'"><span class="dot" style="background:'+col(k)+'"></span>'+esc(S[k].n)+"</button>"; });
+  $("#supChips").innerHTML = sh;
+  syncScrollers();
+}
+
+/* ============ FICHA ============ */
+function ladder(list, q){
+  var n = list.length;
+  return '<ul class="ladder">'+list.map(function(x,i){
+    var bars = ""; for(var b=0;b<n;b++){ bars += '<i class="'+(b<=i?"on":"")+'" style="height:'+(4+ (10*(b+1)/n))+'px"></i>'; }
+    return '<li><span class="step" aria-hidden="true">'+bars+"</span><span>"+mark(x,q)+"</span></li>";
+  }).join("")+"</ul>";
+}
+function card(p,q){
+  var h = has(p), who = p.s==="otros" ? (p.w||"Otro proveedor") : S[p.s].n;
+  var out = '<article class="card'+(h?"":" faded")+'" style="--acc:'+col(p.s)+'">';
+  out += '<div class="meta"><span class="who"><i></i>'+(p.s==="otros"?"Otro · ":"")+mark(who,q)+'</span><span class="cat">'+esc(C[p.c].n)+"</span></div>";
+  out += '<div class="body"><div class="head"><h3 class="name">'+mark(p.n,q)+'</h3>';
+  out += '<button class="have" data-have="'+esc(p.n)+'" aria-pressed="'+(h?"true":"false")+'">'+(h?"✓ Lo tengo":"+ Lo tengo")+"</button></div>";
+  if(p.l && p.l.length){ out += '<div><p class="lbl">Líneas · de menor a mayor precio</p>'+ladder(p.l,q)+"</div>"; }
+  if(p.v && p.v.length){ out += '<div><p class="lbl">'+(p.l?"Cepas / variedades":"Variedades")+'</p><div class="chips">'+p.v.map(function(x){return '<span class="chip">'+mark(x,q)+"</span>";}).join("")+"</div></div>"; }
+  if(p.f && p.f.length){ out += '<div><p class="lbl">Formatos habituales</p><div class="chips">'+p.f.map(function(x){return '<span class="fmt">'+mark(x,q)+"</span>";}).join("")+"</div></div>"; }
+  if(p.alt && p.alt.length){ out += '<div><p class="lbl">También te lo trae</p><div class="chips">'+p.alt.map(function(k){return '<span class="chip alt"><i style="background:'+col(k)+'"></i>'+mark(S[k].n,q)+"</span>";}).join("")+"</div></div>"; }
+  if(p.q){ out += '<div class="warn"><b>Confirmar distribuidor.</b> '+esc(p.x||"Revisa tu última factura.")+"</div>"; }
+  else if(p.x){ out += '<div class="warn">'+esc(p.x)+"</div>"; }
+  out += "</div></article>";
+  return out;
+}
+
+/* ============ VISTA BUSCAR ============ */
+function renderSearch(){
+  var q = norm(st.q.trim());
+  var list = P.filter(function(p){
+    if(st.cat && p.c!==st.cat) return false;
+    if(st.sup && !inSup(p,st.sup)) return false;
+    if(st.h!=="all" && String(has(p))!==st.h) return false;
+    if(q && hay(p).indexOf(q)<0) return false;
+    return true;
+  });
+  $("#count").textContent = list.length+" familia"+(list.length===1?"":"s");
+  if(!list.length){
+    $("#results").innerHTML = '<p class="empty">Nada por aquí. Prueba con otra parte del nombre, o cambia a "Todo" para buscar también en lo que aún no vendes.</p>';
+    return;
+  }
+  var html = "";
+  CORDER.forEach(function(c){
+    var g = list.filter(function(p){return p.c===c;});
+    if(!g.length) return;
+    g.sort(function(a,b){ return ORDER.indexOf(a.s)-ORDER.indexOf(b.s) || a.n.localeCompare(b.n,"es"); });
+    html += '<h2 class="group-title"><span class="gt">'+C[c].e+" "+esc(C[c].n)+'</span><span class="line"></span><small>'+g.length+"</small></h2><div class='grid'>"+g.map(function(p){return card(p,q);}).join("")+"</div>";
+  });
+  $("#results").innerHTML = html;
+}
+
+/* ============ VISTA PEDIDO ============ */
+function renderSupBtns(){
+  $("#supBtns").innerHTML = ORDER.map(function(k){
+    var n = P.filter(function(p){return inSup(p,k) && has(p);}).length;
+    return '<button class="sbtn" data-osup="'+k+'" style="--acc:'+col(k)+'" aria-pressed="'+(st.orderSup===k)+'"><b>'+esc(S[k].n)+"</b><span>"+n+" que vendes</span></button>";
+  }).join("");
+}
+function oRow(p){
+  var qty = orderSt[p.n], on = qty!==undefined;
+  var sub = p.l ? p.l.join(" · ") : (p.v||[]).slice(0,6).join(" · ");
+  if(p.s==="otros") sub = (p.w||"") + (sub ? " — "+sub : "");
+  if(st.orderSup && p.s!==st.orderSup) sub = "También por "+S[st.orderSup].n+(sub ? " — "+sub : "");
+  return '<li><input type="checkbox" data-ochk="'+esc(p.n)+'" '+(on?"checked":"")+' aria-label="Pedir '+esc(p.n)+'">'+
+    '<div><div class="ln">'+esc(p.n)+'</div><div class="ls">'+esc(sub)+"</div></div>"+
+    '<input class="qty" type="text" inputmode="numeric" placeholder="cant." data-oqty="'+esc(p.n)+'" value="'+(on&&qty?esc(qty):"")+'" aria-label="Cantidad '+esc(p.n)+'"></li>';
+}
+function renderOrder(){
+  renderSupBtns();
+  var k = st.orderSup, box = $("#orderBox");
+  if(!k){ box.innerHTML = ""; return; }
+  var mine = P.filter(function(p){return inSup(p,k) && has(p);}).sort(function(a,b){return CORDER.indexOf(a.c)-CORDER.indexOf(b.c)||a.n.localeCompare(b.n,"es");});
+  var more = P.filter(function(p){return inSup(p,k) && !has(p);});
+  var html = '<div class="order" style="--acc:'+col(k)+'"><h2>Pedido · '+esc(S[k].n)+'</h2><p class="sub">'+esc(S[k].d)+"</p>";
+  html += mine.length ? '<ul class="olist">'+mine.map(oRow).join("")+"</ul>" : '<p class="sub">Todavía no marcas nada de este proveedor como "Lo tengo".</p>';
+  if(more.length){ html += '<p class="subhead">También te puede traer</p><ul class="olist">'+more.map(oRow).join("")+"</ul>"; }
+  html += '<div class="oact"><button class="btn" id="copyBtn">Copiar para WhatsApp</button><button class="btn ghost" id="printBtn">Imprimir</button><button class="btn ghost" id="clearBtn">Limpiar marcas</button></div><div id="outWrap"></div></div>';
+  box.innerHTML = html;
+}
+function orderText(){
+  var k = st.orderSup;
+  var items = P.filter(function(p){return inSup(p,k) && orderSt[p.n]!==undefined;});
+  var d = new Date(), fecha = d.toLocaleDateString("es-CL");
+  var lines = ["Pedido "+S[k].n+" · "+fecha,""];
+  items.forEach(function(p){ lines.push("• "+p.n+(orderSt[p.n]?" — "+orderSt[p.n]:"")); });
+  if(!items.length) lines.push("(sin productos marcados)");
+  return lines.join("\n");
+}
+
+/* ============ VISTA PROVEEDORES ============ */
+function renderProv(){
+  $("#pcards").innerHTML = ORDER.map(function(k){
+    var n = P.filter(function(p){return inSup(p,k) && has(p);}).length, m = P.filter(function(p){return inSup(p,k);}).length;
+    return '<div class="pcard" style="--acc:'+col(k)+'"><h3><i></i>'+esc(S[k].n)+'</h3><div class="legal">'+esc(S[k].legal)+" · vendes "+n+" de "+m+" familias</div><p>"+esc(S[k].d)+'</p><div class="go"><button class="btn ghost" data-gosup="'+k+'">Ver sus productos</button></div></div>';
+  }).join("");
+}
+
+/* ============ NAVEGACIÓN ============ */
+function setView(v){
+  st.view = v;
+  document.querySelectorAll(".tab").forEach(function(t){ t.setAttribute("aria-selected", t.dataset.view===v ? "true":"false"); });
+  $("#ctrl-buscar").hidden = v!=="buscar";
+  ["buscar","pedido","proveedores"].forEach(function(x){ $("#view-"+x).hidden = x!==v; });
+  if(v==="buscar") renderSearch();
+  if(v==="pedido") renderOrder();
+  if(v==="proveedores") renderProv();
+  window.scrollTo(0,0);
+}
+function refreshAll(){ renderStats(); renderChips(); if(st.view==="buscar") renderSearch(); if(st.view==="pedido") renderOrder(); if(st.view==="proveedores") renderProv(); }
+
+/* ============ EVENTOS ============ */
+document.addEventListener("click", function(e){
+  var t = e.target.closest("button"); if(!t) return;
+  if(t.dataset.scroll){
+    var sc = t.closest(".scroller"), row = sc.querySelector(".chiprow");
+    row.scrollBy({left: (+t.dataset.scroll) * Math.max(160, row.clientWidth * 0.7), behavior:"smooth"});
+    setTimeout(function(){ syncScroller(sc); }, 380);
+    return;
+  }
+  if(t.dataset.view){ setView(t.dataset.view); return; }
+  if(t.hasAttribute("data-cat")){ st.cat = t.dataset.cat||null; renderChips(); renderSearch(); return; }
+  if(t.hasAttribute("data-sup")){ st.sup = t.dataset.sup||null; renderChips(); renderSearch(); return; }
+  if(t.dataset.h){ st.h = t.dataset.h; document.querySelectorAll("#haveSeg button").forEach(function(b){b.setAttribute("aria-pressed", b===t?"true":"false");}); renderSearch(); return; }
+  if(t.dataset.have){
+    var p = P.filter(function(x){return x.n===t.dataset.have;})[0]; if(!p) return;
+    var nv = has(p) ? 0 : 1;
+    if(nv===p.t) delete haveOv[p.n]; else haveOv[p.n]=nv;
+    save(LS_HAVE, haveOv); renderStats(); renderSearch(); return;
+  }
+  if(t.dataset.osup){ st.orderSup = t.dataset.osup; renderOrder(); return; }
+  if(t.dataset.gosup){ st.sup = t.dataset.gosup; st.h="all"; document.querySelectorAll("#haveSeg button").forEach(function(b){b.setAttribute("aria-pressed", b.dataset.h==="all"?"true":"false");}); renderChips(); setView("buscar"); return; }
+  if(t.id==="copyBtn"){
+    var txt = orderText(), done = false;
+    try{ if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(function(){ t.textContent="✓ Copiado"; setTimeout(function(){t.textContent="Copiar para WhatsApp";},1800); }, show); done = true; } }catch(err){}
+    if(!done) show();
+    function show(){ $("#outWrap").innerHTML = '<textarea class="out" readonly>'+esc(txt)+"</textarea>"; var ta=$("#outWrap textarea"); ta.focus(); ta.select(); }
+    return;
+  }
+  if(t.id==="printBtn"){ window.print(); return; }
+  if(t.id==="clearBtn"){ P.forEach(function(p){ if(inSup(p,st.orderSup)) delete orderSt[p.n]; }); save(LS_ORDER,orderSt); renderOrder(); return; }
+});
+document.addEventListener("change", function(e){
+  var el = e.target;
+  if(el.dataset.ochk){ if(el.checked) orderSt[el.dataset.ochk] = orderSt[el.dataset.ochk]||""; else delete orderSt[el.dataset.ochk]; save(LS_ORDER,orderSt); }
+});
+document.addEventListener("input", function(e){
+  var el = e.target;
+  if(el.id==="q"){ st.q = el.value; if(st.q && st.h==="1"){ /* al buscar, mira en todo para no perder resultados */ st.h="all"; document.querySelectorAll("#haveSeg button").forEach(function(b){b.setAttribute("aria-pressed", b.dataset.h==="all"?"true":"false");}); } renderSearch(); return; }
+  if(el.dataset.oqty){
+    var n = el.dataset.oqty; orderSt[n] = el.value;
+    var chk = document.querySelector('[data-ochk="'+CSS.escape(n)+'"]'); if(chk) chk.checked = true;
+    save(LS_ORDER,orderSt);
+  }
+});
+
+refreshAll();
+syncScrollers();
+setTimeout(syncScrollers, 400);
+if(document.fonts && document.fonts.ready){ document.fonts.ready.then(syncScrollers); }
+})();
+</script>
+</body>
+</html>
