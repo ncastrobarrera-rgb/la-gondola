@@ -294,7 +294,7 @@ var S = {
   cpch:  {n:"Pisquera de Chile", legal:"Compañía Pisquera de Chile · CCU + Control", d:"La pata de destilados del grupo CCU: piscos Mistral, Control, Campanario, Horcón Quemado, Tres Erres y los sour. Además reparte todo el portafolio Pernod Ricard (Absolut, Chivas, Ballantine's, Havana, Beefeater, Jameson, Olmeca, Martell) y Fratelli Branca."},
   andina:{n:"Coca-Cola Andina", legal:"Embotelladora Andina", d:"Sistema Coca-Cola, cervezas AB InBev (Corona, Becker, Budweiser), destilados Diageo (Johnnie Walker, Smirnoff, Baileys), pisco Capel y vinos Santa Rita."},
   peumo: {n:"Peumo · VCT Chile", legal:"Distribuidora de Viña Concha y Toro", d:"Vino Concha y Toro de punta a punta (Casillero, Marqués, Don Melchor), Cono Sur, Emiliana. Más cervezas Kross, Estrella Damm, Miller y pisco Malpaso."},
-  desa:  {n:"DESA", legal:"Distribución y Excelencia S.A.", d:"Importados premium: Jack Daniel's, Jägermeister, Aperol, Stoli, Herradura. Vinos Errázuriz y Undurraga, cervezas Peroni y Estrella Galicia."},
+  desa:  {n:"DESA", legal:"Distribución y Excelencia S.A.", d:"Importados premium y la familia Errázuriz completa. Whiskies Jack Daniel's, Glenfiddich, Grant's y Wild Turkey; Jägermeister, Stoli, Hendrick's, Herradura y Flor de Caña. En vino: Errázuriz, Caliterra, Arboleda, Seña, Undurraga, Morandé y Oveja Negra."},
   negra: {n:"La Negra", legal:"Distribuidora mayorista multimarca", d:"No tiene marcas propias: compra a los demás y revende. Te trae Doña Dominga, Barceló, Valdivieso, Spirit y los Miguel Torres, y además dobla marcas que ya tienes con DESA, como Jägermeister, Secreto Peruano y Mr. Big. En esas, compara precio por unidad antes de decidir."},
   otros: {n:"Otros proveedores", legal:"Fuera de tus siete habituales", d:"Marcas con distribuidor propio (Grupo Cepas, Miguel Torres, Casa Silva, Score) o cuyo distribuidor hay que confirmar. Si no tienes cuenta directa, pregunta primero en La Negra."}
 };
@@ -326,13 +326,13 @@ var P = [
 {n:"D'olbek", s:"ccu", c:"cerveza", t:1, v:["Lager","Ale","Maqui tipo Ale"], f:["Botella 330"]},
 {n:"Blue Moon", s:"ccu", c:"cerveza", t:1, v:["Belgian White"], f:["Botella 355","Lata 470"]},
 {n:"Patagonia", s:"ccu", c:"cerveza", t:1, v:["Amber Lager","Weisse","24.7","Bohemian Pilsener"], f:["Botella 355","Lata 470","Botella 730"], x:"Confirmada en el sitio de marcas de CCU, dentro de cervezas artesanales."},
-{n:"Corona", s:"andina", c:"cerveza", t:1, v:["Corona Extra","Corona Cero","Corona Sunbrew"], f:["Botella 330","Botella 355","Botella 710","Lata 350","Lata 410","Botella 1 L retornable"]},
+{n:"Corona", s:"andina", alt:["desa"], q:1, c:"cerveza", t:1, v:["Corona Extra","Corona Cero","Corona Sunbrew"], f:["Botella 330","Botella 355","Botella 710","Lata 350","Lata 410","Botella 1 L retornable"], x:"Las dos listas la reclaman: Andina por el acuerdo con AB InBev, y el portafolio de DESA también la incluye. Mira cuál aparece en tu factura."},
 {n:"Budweiser", s:"andina", c:"cerveza", t:1, v:["Budweiser","Budweiser Zero"], f:["Lata 350","Lata 470","Botella 343","Botella 1 L retornable"]},
 {n:"Becker", s:"andina", c:"cerveza", t:1, v:["Becker","Becker Zero"], f:["Lata 350","Lata 470","Lata 710","Botella 1 L retornable","Botella 1,2 L"]},
 {n:"Báltica", s:"andina", c:"cerveza", t:1, v:["Báltica"], f:["Lata 350","Lata 470","Lata 710","Botella 1 L retornable"]},
 {n:"Cusqueña", s:"andina", c:"cerveza", t:1, v:["Dorada","Negra","Roja","Trigo"], f:["Botella 330","Lata 355"]},
 {n:"Quilmes", s:"andina", c:"cerveza", t:1, v:["Clásica","Stout"], f:["Lata 350","Lata 470","Botella 1 L"]},
-{n:"Modelo", s:"andina", c:"cerveza", t:1, v:["Modelo Especial","Negra Modelo"], f:["Botella 355","Lata 355","Lata 710"]},
+{n:"Modelo", s:"andina", alt:["desa"], q:1, c:"cerveza", t:1, v:["Modelo Especial","Negra Modelo"], f:["Botella 355","Lata 355","Lata 710"], x:"Mismo caso que Corona: aparece en Andina y en el portafolio de DESA. Confirma por factura."},
 {n:"Kross", s:"peumo", c:"cerveza", t:1, v:["Golden","Pilsner","Stout","Maibock","5","IPA"], f:["Botella 330","Lata 470"]},
 {n:"Miller", s:"peumo", c:"cerveza", t:1, v:["Genuine Draft"], f:["Botella 355","Lata 355","Lata 470"]},
 /* para ampliar */
@@ -341,13 +341,15 @@ var P = [
 {n:"Coors", s:"ccu", c:"cerveza", t:0, v:["Coors Original"], f:["Lata 350","Lata 470"]},
 {n:"Guayacán", s:"ccu", c:"cerveza", t:0, v:["Golden Ale","Stout","Diaguita"], f:["Botella 330"]},
 {n:"Stones", s:"ccu", c:"cerveza", t:0, v:["Stones"], f:["Lata 350","Lata 470","Botella 1 L retornable"], x:"Cerveza nacional de CCU, de precio bajo. Buena para competir con Báltica."},
-{n:"Imperial", s:"ccu", c:"cerveza", t:0, v:["Imperial"], f:["Lata 350","Lata 470"], x:"Marca de CCU. Tradicional en Argentina y presente en el portafolio nacional."},
+{n:"Imperial", s:"ccu", alt:["desa"], q:1, c:"cerveza", t:0, v:["Imperial"], f:["Lata 350","Lata 470"], x:"Figura en el sitio de CCU y también en el portafolio de DESA. Pregunta en ambas cuál te la puede vender."},
 {n:"Stella Artois", s:"andina", c:"cerveza", t:0, v:["Stella Artois","Stella 0.0"], f:["Botella 330","Lata 470","Botella 975"]},
 {n:"Michelob Ultra", s:"andina", c:"cerveza", t:0, v:["Michelob Ultra"], f:["Botella 355","Lata 355"]},
 {n:"Estrella Damm", s:"peumo", c:"cerveza", t:0, v:["Estrella Damm","Voll-Damm","Free Damm"], f:["Botella 330","Lata 330"]},
-{n:"Peroni", s:"desa", c:"cerveza", t:0, v:["Nastro Azzurro","Peroni 0.0"], f:["Botella 330","Botella 620"]},
-{n:"Estrella Galicia", s:"desa", c:"cerveza", t:0, q:1, v:["Especial","1906","0,0"], f:["Botella 330","Lata 330"], x:"DESA la anunció en su portafolio, pero Andina también dice tener acuerdo con Estrella Galicia. Compara precio en ambas listas."},
-{n:"Mestra", s:"desa", c:"cerveza", t:0, v:["Artesanales Mestra"], f:["Botella 330","Lata 470"]},
+{n:"Peroni", s:"desa", q:1, c:"cerveza", t:0, v:["Nastro Azzurro","Peroni 0.0"], f:["Botella 330","Botella 620"], x:"DESA la anunció en prensa en 2024, pero NO aparece en el portafolio que conseguiste. Puede que ya no la tengan: pregunta antes de pedir."},
+{n:"Estrella Galicia", s:"andina", q:1, c:"cerveza", t:0, v:["Especial","1906","0,0"], f:["Botella 330","Lata 330"], x:"No está en el portafolio actual de DESA. Andina sí declara acuerdo con Estrella Galicia, así que la movimos ahí: confirma igual."},
+{n:"Mestra", s:"desa", q:1, c:"cerveza", t:0, v:["Artesanales Mestra"], f:["Botella 330","Lata 470"], x:"Mencionada por DESA en prensa, pero ausente del portafolio que conseguiste. Confirma si la siguen trayendo."},
+{n:"Erdinger", s:"desa", c:"cerveza", t:0, v:["Weissbier","Dunkel","Alkoholfrei"], f:["Botella 500"], x:"Trigo alemana. Categoría premium importada."},
+{n:"Goose Island", s:"desa", c:"cerveza", t:0, v:["IPA","Midway Session","312"], f:["Botella 355","Lata 473"]},
 
 /* ---- VINO ---- */
 {n:"Gato", s:"vspt", c:"vino", t:1, l:["Gato (caja)","Gato Negro varietal","Gato Negro Reserva"], v:["Cabernet Sauvignon","Merlot","Carmenere","Sauvignon Blanc","Chardonnay","Rosé"], f:["Caja 1 L","Caja 2 L","Botella 750","Botella 1,5 L"]},
@@ -368,7 +370,7 @@ var P = [
 {n:"Santa Digna", s:"otros", w:"Miguel Torres Chile", alt:["negra"], c:"vino", t:1, l:["Reserva","Gran Reserva"], v:["Cabernet Sauvignon","Carmenere","Rosé","Sauvignon Blanc"], f:["Botella 750"]},
 {n:"Bestia Azul", s:"otros", w:"Bestias Wines (Maule)", c:"vino", t:1, l:["Reserva"], v:["Cabernet Sauvignon","Merlot","Carmenere"], f:["Botella 750"]},
 {n:"Toro de Piedra", s:"otros", w:"Viña Requingua", q:1, c:"vino", t:1, l:["Reserva","Gran Reserva"], v:["Cabernet Sauvignon","Carmenere","Syrah"], f:["Botella 750"], x:"Viña de Curicó con venta propia. Confirma por factura quién te la trae."},
-{n:"Oveja Negra", s:"otros", w:"VIA Wines", q:1, c:"vino", t:1, l:["Reserva","Gran Reserva"], v:["Cabernet Franc-Carmenere","Cabernet Sauvignon-Syrah","Sauvignon Blanc"], f:["Botella 750"], x:"Revisa tu factura: puede llegarte directo de la viña o vía mayorista."},
+{n:"Oveja Negra", s:"desa", c:"vino", t:1, l:["Varietal","Reserva","Gran Reserva"], v:["Cabernet Franc-Carmenere","Cabernet Sauvignon-Syrah","Carmenere","Sauvignon Blanc"], f:["Botella 750"]},
 {n:"Centenario vino añejo", s:"otros", w:"Por confirmar", q:1, c:"vino", t:1, v:["Tinto añejo"], f:["Botella 750"], x:"No pude verificar la viña ni el distribuidor. Anótalo desde tu próxima factura."},
 /* para ampliar */
 {n:"Santa Helena", s:"vspt", c:"vino", t:0, l:["Varietal","Reserva","Selección del Directorio"], v:["Cabernet Sauvignon","Merlot","Carmenere"], f:["Botella 750","Caja 2 L"]},
@@ -384,12 +386,18 @@ var P = [
 {n:"Don Melchor", s:"peumo", c:"vino", t:0, l:["Don Melchor (ícono)"], v:["Cabernet Sauvignon"], f:["Botella 750"]},
 {n:"Santa Rita", s:"andina", c:"vino", t:0, l:["Medalla Real","Secret Reserve","Casa Real"], v:["Cabernet Sauvignon","Carmenere","Merlot"], f:["Botella 750"]},
 {n:"Carmen", s:"andina", c:"vino", t:0, l:["Reserva","Gran Reserva"], v:["Cabernet Sauvignon","Carmenere"], f:["Botella 750"]},
-{n:"Errázuriz", s:"desa", c:"vino", t:0, l:["Estate","Max Reserva","Aconcagua Costa"], v:["Cabernet Sauvignon","Carmenere","Sauvignon Blanc"], f:["Botella 750"]},
+{n:"Errázuriz", s:"desa", c:"vino", t:0, l:["Estate","Max Reserva","Aconcagua Costa","Don Maximiano (ícono)"], v:["Cabernet Sauvignon","Carmenere","Syrah","Sauvignon Blanc","Chardonnay"], f:["Botella 750"]},
+{n:"Caliterra", s:"desa", c:"vino", t:0, l:["Reserva","Tributo"], v:["Cabernet Sauvignon","Carmenere","Merlot","Malbec","Sauvignon Blanc"], f:["Botella 750"], x:"De la familia Errázuriz. Buena relación precio-calidad para vitrina media."},
+{n:"Arboleda", s:"desa", c:"vino", t:0, l:["Arboleda (premium)"], v:["Cabernet Sauvignon","Carmenere","Syrah","Chardonnay"], f:["Botella 750"], x:"También de la familia Errázuriz, un escalón sobre Caliterra."},
+{n:"Seña · Viñedos Chadwick", s:"desa", c:"vino", t:0, l:["Seña","Viñedos Chadwick"], v:["Blend ícono de Aconcagua y Maipo"], f:["Botella 750"], x:"Lo más caro que trae DESA en vino. Solo para pedido especial o regalo."},
+{n:"Morandé", s:"desa", c:"vino", t:0, l:["Varietal","Reserva","Gran Reserva"], v:["Cabernet Sauvignon","Carmenere","Sauvignon Blanc"], f:["Botella 750"]},
+{n:"Casa Marín · Santa Cruz", s:"desa", c:"vino", t:0, l:["Casa Marín (costa)","Santa Cruz (Colchagua)"], v:["Sauvignon Blanc","Pinot Noir","Cabernet Sauvignon"], f:["Botella 750"], x:"Viñas boutique. Rotación lenta, pero suben el nivel de la vitrina."},
 {n:"Undurraga", s:"desa", c:"vino", t:0, l:["Varietal","Sibaris Gran Reserva","T.H."], v:["Cabernet Sauvignon","Carmenere","Sauvignon Blanc"], f:["Botella 750"]},
 
 /* ---- ESPUMANTE Y CÓCTEL DE VINO ---- */
 {n:"Viñamar", s:"vspt", c:"burbuja", t:1, v:["Brut","Extra Brut","Rosé","Moscato","Demi Sec"], f:["Botella 187","Botella 750"]},
 {n:"Riccadonna", s:"desa", c:"burbuja", t:1, v:["Asti","Ruby","Prosecco","Rosé"], f:["Botella 750"]},
+{n:"Codorníu", s:"desa", c:"burbuja", t:0, v:["Cava Brut","Cava Rosé","María Codorníu Sur"], f:["Botella 750"], x:"Cava español. La línea María Codorníu Sur se hace en Chile."},
 {n:"Valdivieso", s:"negra", c:"burbuja", t:1, v:["Brut","Extra Brut","Demi Sec","Rosé","Nature"], f:["Botella 187","Botella 750"], x:"Espumantes de Viña Valdivieso. Te llegan por La Negra."},
 {n:"Ópera", s:"otros", w:"Por confirmar", q:1, c:"burbuja", t:1, v:["Espumantes Ópera"], f:["Botella 750"], x:"No pude verificar el distribuidor. Anótalo desde tu próxima factura."},
 {n:"Donnaluna", s:"otros", w:"Por confirmar", q:1, c:"burbuja", t:1, v:["Espumantes Donnaluna"], f:["Botella 750"], x:"No pude verificar el distribuidor. Anótalo desde tu próxima factura."},
@@ -401,7 +409,7 @@ var P = [
 {n:"Campanario", s:"cpch", c:"pisco", t:1, v:["Pisco 35°","Sour","Sour Light","Cóctel"], f:["Botella 750","Botella 1 L","Botella 1,5 L"]},
 {n:"Horcón Quemado", s:"cpch", c:"pisco", t:1, l:["Pisco 35°","Pisco 40°","Pisco 46° reservado"], v:["Sour"], f:["Botella 750","Botella 1 L"]},
 {n:"Capel", s:"andina", c:"pisco", t:1, v:["Pisco 35°","Reservado 40°","Doble Destilado","Sour","Capel Ice / cócteles"], f:["Botella 375","Botella 750","Botella 1 L","Botella 1,5 L","Lata"]},
-{n:"Secreto Peruano", s:"desa", alt:["negra"], c:"pisco", t:1, v:["Sour"], f:["Botella 750","Botella 1 L"]},
+{n:"Secreto Peruano", s:"desa", alt:["negra"], c:"pisco", t:1, v:["Sour","Maracuyá","Zero"], f:["Botella 750","Botella 1 L"], x:"Confirmado en el portafolio de DESA. Tú además lo recibes por La Negra."},
 {n:"Sabor Andino Sour", s:"cpch", c:"pisco", t:1, v:["Sour"], f:["Botella 750","Botella 1 L"], x:"Aparece en el sitio de marcas de CCU dentro de Piscos y Licores, o sea Pisquera de Chile."},
 /* para ampliar */
 {n:"Mistral", s:"cpch", c:"pisco", t:0, l:["35°","40°","Nobel","Gran Nobel"], f:["Botella 750","Botella 1 L"]},
@@ -410,6 +418,8 @@ var P = [
 {n:"Alto del Carmen", s:"andina", c:"pisco", t:0, l:["35°","40°","Reservado"], f:["Botella 750","Botella 1 L"]},
 {n:"Malpaso", s:"peumo", c:"pisco", t:0, l:["35°","40°","Reservado"], f:["Botella 750"]},
 {n:"Republicano", s:"desa", c:"pisco", t:0, v:["Pisco"], f:["Botella 750"]},
+{n:"Viñas de Oro", s:"desa", c:"pisco", t:0, v:["Pisco peruano: Quebranta, Italia, Acholado"], f:["Botella 750"]},
+{n:"Pisco Bauzá", s:"desa", q:1, c:"pisco", t:0, l:["35°","40°"], f:["Botella 750"], x:"Aparece en el portafolio de DESA, pero Bauzá también figura históricamente en Pisquera de Chile. Pregunta en ambas."},
 {n:"Espíritu de los Andes", s:"cpch", c:"pisco", t:0, l:["Doble destilado"], f:["Botella 750"], x:"Pisco de moscatel con doble destilación, gama alta de Pisquera."},
 {n:"La Serena", s:"cpch", c:"pisco", t:0, l:["35°","40°"], f:["Botella 750","Botella 1 L"]},
 
@@ -421,7 +431,7 @@ var P = [
 {n:"Chivas Regal", s:"cpch", c:"whisky", t:1, l:["12 años","Extra 13","Mizunara","18 años"], f:["Botella 375","Botella 750","Botella 1 L"]},
 {n:"Ballantine's", s:"cpch", c:"whisky", t:1, l:["Finest","7 años","12 años","17 años"], f:["Botella 750","Botella 1 L"]},
 {n:"Jack Daniel's", s:"desa", c:"whisky", t:1, l:["Old No. 7","Honey","Fire","Apple","Gentleman Jack","Single Barrel"], f:["Botella 375","Botella 750","Botella 1 L"]},
-{n:"Monkey Shoulder", s:"desa", c:"whisky", t:1, q:1, l:["Blended Malt"], f:["Botella 700"], x:"Es de William Grant & Sons, igual que Grant's, que trae DESA. Confirma en tu factura."},
+{n:"Monkey Shoulder", s:"desa", c:"whisky", t:1, l:["Blended Malt"], f:["Botella 700"]},
 {n:"Jim Beam", s:"otros", w:"Grupo Cepas", c:"whisky", t:1, l:["White","Honey","Apple","Black"], f:["Botella 750","Botella 1 L"], x:"Grupo Cepas maneja el portafolio Suntory en Chile. El mercado es abierto: también puede llegarte por mayorista."},
 {n:"Blenders", s:"otros", w:"Por confirmar", q:1, c:"whisky", t:1, v:["Blended"], f:["Botella 750","Botella 1 L"], x:"No pude verificar el distribuidor. Anótalo desde tu próxima factura."},
 /* para ampliar */
@@ -430,6 +440,12 @@ var P = [
 {n:"Royal Salute", s:"cpch", c:"whisky", t:0, l:["21 años"], f:["Botella 700"], x:"Lo más caro del portafolio Pernod. Solo si tienes clientela que lo pida."},
 {n:"Bulleit", s:"andina", c:"whisky", t:0, l:["Bourbon","Rye"], f:["Botella 750"]},
 {n:"Grant's", s:"desa", c:"whisky", t:1, l:["Triple Wood","8 años","12 años"], f:["Botella 750","Botella 1 L"]},
+{n:"Glenfiddich", s:"desa", c:"whisky", t:0, l:["12 años","15 años","18 años"], f:["Botella 750"], x:"Single malt, el más vendido del mundo en su categoría."},
+{n:"The Balvenie", s:"desa", c:"whisky", t:0, l:["DoubleWood 12","Caribbean Cask 14"], f:["Botella 750"], x:"Single malt de gama alta, misma casa que Glenfiddich y Grant's."},
+{n:"Woodford Reserve", s:"desa", c:"whisky", t:0, l:["Distiller's Select","Double Oaked"], v:["Bourbon"], f:["Botella 750"]},
+{n:"Wild Turkey", s:"desa", c:"whisky", t:0, l:["81","101","Longbranch"], v:["Bourbon"], f:["Botella 750"]},
+{n:"Tullamore D.E.W.", s:"desa", c:"whisky", t:0, l:["Original","12 años"], v:["Whiskey irlandés"], f:["Botella 750"]},
+{n:"Clan MacGregor · Old Smuggler", s:"desa", c:"whisky", t:0, l:["Clan MacGregor","Old Smuggler","Early Times","James King"], f:["Botella 750","Botella 1 L"], x:"Las etiquetas económicas de DESA. Útiles para el estante de precio bajo."},
 {n:"Dewar's · William Lawson's", s:"otros", w:"Grupo Cepas", c:"whisky", t:0, l:["William Lawson's","Dewar's White Label","Dewar's 12"], f:["Botella 750","Botella 1 L"]},
 
 /* ---- RON ---- */
@@ -447,6 +463,8 @@ var P = [
 {n:"Captain Morgan", s:"andina", c:"ron", t:0, v:["Spiced Gold","White"], f:["Botella 750","Botella 1 L"]},
 {n:"Zacapa", s:"andina", c:"ron", t:0, l:["23","XO"], f:["Botella 750"]},
 {n:"Flor de Caña", s:"desa", c:"ron", t:0, l:["4 años","7 años","12 años","18 años"], f:["Botella 750"]},
+{n:"Appleton Estate", s:"desa", c:"ron", t:0, l:["Signature","8 años Reserve","12 años Rare"], v:["Ron jamaiquino"], f:["Botella 750"]},
+{n:"Cachaça 51", s:"desa", c:"ron", t:0, v:["Cachaça"], f:["Botella 750","Botella 1 L"], x:"Para caipiriña. Categoría chica pero sin competencia en la góndola."},
 
 /* ---- TEQUILA ---- */
 {n:"Olmeca", s:"cpch", c:"tequila", t:1, l:["Blanco","Gold","Reposado","Altos Plata"], f:["Botella 750","Botella 1 L"]},
@@ -466,11 +484,13 @@ var P = [
 /* para ampliar */
 {n:"Gordon's", s:"andina", c:"gin", t:0, v:["London Dry","Pink"], f:["Botella 750"]},
 {n:"Engine", s:"desa", c:"gin", t:0, v:["Engine Gin"], f:["Botella 500"]},
+{n:"Hendrick's", s:"desa", c:"gin", t:0, v:["Original","Lunar","Flora Adora"], f:["Botella 700"], x:"El gin premium más pedido en coctelería."},
 
 /* ---- VODKA ---- */
 {n:"Absolut", s:"cpch", c:"vodka", t:1, v:["Blue","Citron","Mandrin","Raspberri","Vanilia","Apeach","Mango"], f:["Botella 375","Botella 750","Botella 1 L"]},
 {n:"Smirnoff", s:"andina", c:"vodka", t:1, v:["Nº21 Red","Green Apple","Raspberry","Smirnoff Ice (RTD)"], f:["Botella 375","Botella 750","Botella 1 L","Botella 275 Ice","Lata Ice"]},
-{n:"Stoli", s:"desa", c:"vodka", t:1, v:["Stolichnaya","Elit","sabores"], f:["Botella 750","Botella 1 L"]},
+{n:"Stoli", s:"desa", c:"vodka", t:1, v:["Stolichnaya","Elit","Elit Andean Edition","sabores"], f:["Botella 750","Botella 1 L"]},
+{n:"Finlandia", s:"desa", c:"vodka", t:0, v:["Classic","Lime","Cranberry"], f:["Botella 750","Botella 1 L"]},
 {n:"Eristoff", s:"otros", w:"Grupo Cepas", c:"vodka", t:1, v:["Original","Black","Red"], f:["Botella 750","Botella 1 L"]},
 /* para ampliar */
 {n:"Puklaro", s:"cpch", c:"vodka", t:0, v:["Vodka Puklaro"], f:["Botella 750"]},
@@ -480,24 +500,28 @@ var P = [
 
 /* ---- LICORES Y APERITIVOS ---- */
 {n:"Jägermeister", s:"desa", alt:["negra"], c:"licor", t:1, v:["Original","Cold Brew Coffee","Manifest","Scharf"], f:["Mini 20 ml","Botella 200","Botella 700","Botella 1 L"]},
-{n:"Aperol", s:"desa", c:"licor", t:1, v:["Aperol","Aperol Spritz RTD"], f:["Botella 750","Botella 1 L"]},
-{n:"Campari", s:"desa", q:1, c:"licor", t:1, v:["Bitter"], f:["Botella 750","Botella 1 L"], x:"DESA ya trae Aperol (mismo dueño) y vende Campari en su tienda. Muy probable que te lo facture DESA: confírmalo."},
-{n:"Frangelico", s:"desa", q:1, c:"licor", t:1, v:["Avellana"], f:["Botella 700"], x:"Marca del grupo Campari. Debería venir por el mismo proveedor que te trae Campari."},
-{n:"Drambuie", s:"desa", q:1, c:"licor", t:1, v:["Original"], f:["Botella 750"], x:"Marca de William Grant & Sons (como Grant's, que trae DESA). Confirma en tu factura."},
+{n:"Aperol", s:"desa", q:1, c:"licor", t:1, v:["Aperol","Aperol Spritz RTD"], f:["Botella 750","Botella 1 L"], x:"Igual que Campari: no figura en el portafolio que conseguiste, pero DESA lo menciona en prensa. Confirma por factura."},
+{n:"Campari", s:"desa", q:1, c:"licor", t:1, v:["Bitter"], f:["Botella 750","Botella 1 L"], x:"No aparece en el portafolio que conseguiste, aunque DESA sí trae otras marcas del grupo Campari (Frangelico, Wild Turkey, Appleton). Revisa tu factura."},
+{n:"Frangelico", s:"desa", c:"licor", t:1, v:["Avellana"], f:["Botella 700"]},
+{n:"Drambuie", s:"desa", c:"licor", t:1, v:["Original"], f:["Botella 750"]},
 {n:"Fernet Branca", s:"cpch", c:"licor", t:1, v:["Fernet Branca","Branca Menta"], f:["Botella 750","Botella 1 L"]},
 {n:"Ramazzotti", s:"cpch", c:"licor", t:1, v:["Amaro","Aperitivo Rosato","Violetto"], f:["Botella 700","Botella 1 L"]},
 {n:"Kahlúa", s:"cpch", c:"licor", t:1, v:["Café"], f:["Botella 750","Botella 1 L"]},
 {n:"Baileys", s:"andina", c:"licor", t:1, v:["Original","Salted Caramel","Strawberry"], f:["Botella 375","Botella 750","Botella 1 L"]},
 {n:"Martini", s:"otros", w:"Grupo Cepas", c:"licor", t:1, v:["Rosso","Bianco","Extra Dry","Fiero","Asti / Prosecco"], f:["Botella 750","Botella 1 L"]},
-{n:"Cinzano", s:"otros", w:"Por confirmar", q:1, c:"licor", t:1, v:["Rosso","Bianco","Extra Dry"], f:["Botella 750","Botella 1 L"], x:"Campari vendió Cinzano al grupo italiano Caffo en 2025. El distribuidor en Chile puede haber cambiado: revisa tu última factura."},
+{n:"Cinzano", s:"desa", c:"licor", t:1, v:["Rosso","Bianco","Extra Dry","Espumantes"], f:["Botella 750","Botella 1 L"], x:"La lista de DESA menciona los espumantes Cinzano. Si también te trae el vermouth, es el mismo proveedor."},
 {n:"Amarula", s:"otros", w:"Por confirmar", q:1, c:"licor", t:1, v:["Cream","Vanilla Spice","Ethiopian Coffee"], f:["Botella 375","Botella 750"], x:"No pude verificar el importador en Chile."},
 {n:"Disaronno", s:"otros", w:"Por confirmar", q:1, c:"licor", t:1, v:["Originale","Velvet"], f:["Botella 700"], x:"No pude verificar el importador en Chile."},
 {n:"Licores Mitjans", s:"otros", w:"Licores Mitjans", q:1, c:"licor", t:1, v:["Menta","Cacao","Amaretto","Café","Triple Sec","Curaçao","Manzanilla","Anís","Fernet","Vermouth","Aspritz Rossard"], f:["Botella 750","Botella 1 L"], x:"Históricamente ligado a Santa Rita. Pregunta a Andina (trae vinos Santa Rita) o a La Negra."},
 {n:"Araucano", s:"otros", w:"Por confirmar", q:1, c:"licor", t:1, v:["Licor digestivo de hierbas"], f:["Botella 750","Botella 1 L"], x:"No pude verificar el fabricante actual ni el distribuidor."},
 /* para ampliar */
 {n:"Fehrenberg", s:"cpch", c:"licor", t:0, v:["Menta","Cacao","Guinda"], f:["Botella 750"]},
+{n:"Bols", s:"desa", c:"licor", t:0, v:["Blue Curaçao","Triple Sec","Menta","Durazno","Granadina"], f:["Botella 700"], x:"La línea de coctelería clásica. Si vendes a bares o pubs, es surtido obligado."},
+{n:"Carolans", s:"desa", c:"licor", t:0, v:["Irish Cream"], f:["Botella 700"], x:"Crema irlandesa, alternativa más económica a Baileys."},
+{n:"Gran Cruz", s:"desa", c:"licor", t:0, v:["Oporto Ruby","Oporto Tawny"], f:["Botella 750"]},
+{n:"Singani 63", s:"desa", c:"licor", t:0, v:["Singani boliviano"], f:["Botella 750"], x:"Destilado de uva boliviano. Nicho, pero sin competencia."},
 {n:"Martell", s:"cpch", c:"licor", t:0, l:["VS","VSOP","XO"], v:["Cognac"], f:["Botella 700"], x:"Cognac de Pernod Ricard. Categoría de regalo."},
-{n:"Sheridan's", s:"desa", c:"licor", t:0, v:["Café-crema"], f:["Botella 700"]},
+{n:"Sheridan's", s:"andina", c:"licor", t:0, v:["Café-crema"], f:["Botella 700"], x:"Es marca Diageo, así que corresponde a Andina. No está en el portafolio de DESA."},
 {n:"Brujas de Salamanca", s:"andina", c:"licor", t:0, v:["Licores Brujas de Salamanca"], f:["Botella 750"]},
 
 /* ---- LISTOS PARA TOMAR ---- */
@@ -525,7 +549,10 @@ var P = [
 /* para ampliar */
 {n:"Rockstar", s:"ccu", c:"energia", t:0, v:["Original","Sabores"], f:["Lata 473"], x:"Marca PepsiCo. Peumo también la ha tenido en catálogo: compara."},
 {n:"Powerade · Fastlyte", s:"andina", c:"energia", t:0, v:["Powerade","Fastlyte"], f:["Botella 500","Botella 1 L"]},
-{n:"Mr. Big", s:"negra", c:"energia", t:1, v:["Original","Zero","Tropical","Panther"], f:["Lata 473","Botella 720","Botella 1,5 L","Botella 2 L","Botella 2,5 L"]},
+{n:"Mr. Big", s:"negra", c:"energia", t:1, v:["Original","Zero","Tropical","Panther"], f:["Lata 473","Botella 720","Botella 1,5 L","Botella 2 L","Botella 2,5 L"], x:"No aparece en el portafolio de DESA. Te llega por La Negra."},
+{n:"Jugos Saturno", s:"desa", c:"jugo", t:0, v:["Néctares Saturno"], f:["Caja 1 L"]},
+{n:"Andes Mountain Water", s:"desa", c:"bebida", t:0, v:["Con gas","Sin gas"], f:["Botella 500","Botella 750"], x:"Agua mineral premium, para mesa de restaurante."},
+{n:"Fentimans", s:"desa", c:"bebida", t:0, v:["Tonic Water","Ginger Beer","Rose Lemonade"], f:["Botella 200","Botella 500"], x:"Mixers premium británicos. Suben el ticket del gin tonic."},
 
 /* ---- JUGOS Y TÉ ---- */
 {n:"Lipton Ice Tea", s:"ccu", c:"jugo", t:1, v:["Limón","Durazno","Verde"], f:["Botella 500","Botella 1,5 L"]},
